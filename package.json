@@ -1,0 +1,25 @@
+{
+  "name": "lulius",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build:types": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build": "rolldown --config && npm run build:types",
+    "test": "vitest"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "dts-bundle-generator": "^9.5.1",
+    "rolldown": "^1.0.0-beta.1",
+    "vitest": "^3.0.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
