@@ -1,18 +1,16 @@
 import { describe, it, expect } from 'vitest'
-import { hello } from '../src'
+import Lulia from '../src'
 
-describe('hello function', () => {
-  it('should return a greeting with the default name "World"', () => {
-    const result = hello()
-    expect(result).toMatch(
-      /Hello, World!|Hi, World!|Greetings, World!|Hey, World!|Bonjour, World!/
-    )
-  })
+describe('Lulia', () => {
+  it('should return initial configuration', () => {
+    const initialConfig = {
+      date: new Date(),
+      longitude: 123.45,
+      latitude: 45.67
+    }
 
-  it('should return a greeting with a provided name', () => {
-    const result = hello('Marc')
-    expect(result).toMatch(
-      /Hello, Marc!|Hi, Marc!|Greetings, Marc!|Hey, Marc!|Bonjour, Marc!/
-    )
+    const config = Lulia(initialConfig).getConfig()
+
+    expect(config).toStrictEqual(initialConfig)
   })
 })

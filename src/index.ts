@@ -1,7 +1,9 @@
-function hello(name: string = 'World'): string {
-  const greetings = ['Hello', 'Hi', 'Greetings', 'Hey', 'Bonjour']
-  const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)]
-  return `${randomGreeting}, ${name}!`
-}
+import type { LuliaConfig } from './types'
+import { withValidation, validateConfig, validationRules } from './config'
 
-export { hello }
+export default withValidation(
+  (initialConfig: LuliaConfig) => ({
+    getConfig: () => initialConfig
+  }),
+  config => validateConfig(config, validationRules)
+)
