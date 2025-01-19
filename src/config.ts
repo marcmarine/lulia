@@ -1,4 +1,9 @@
 import { ValidationError } from './errors'
+export interface LuliaConfig {
+  date: Date
+  longitude: number
+  latitude: number
+}
 
 interface ValidationRule<T> {
   validate: (value: T) => boolean
@@ -44,6 +49,6 @@ export const withValidation = <T extends (...args: any[]) => any>(
 ) => {
   return (...args: Parameters<T>): ReturnType<T> => {
     const validatedConfig = validator(args[0])
-    return fn(validatedConfig)
+    return fn(validatedConfig, args[1])
   }
 }
