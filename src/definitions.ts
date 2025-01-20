@@ -10,5 +10,5 @@ export type PlanetPositon = {
     longitude: number
   }
   retrograde: boolean
-  sign: number
+  sign: string
 }

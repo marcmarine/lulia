@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import Lulia from '../src'
-import { PlanetPositon } from '../src/definitions'
-import { PLANETS } from '../src/constants'
+import { PlanetName, PlanetPositon } from '../src/definitions'
 
 describe('Planets calculations', () => {
   const REFERENCE_DATA = {
@@ -17,19 +16,27 @@ describe('Planets calculations', () => {
     pluto: 'aquarius'
   }
 
-  Object.values(PLANETS).forEach(planet => {
+  const initialConfig = {
+    date: new Date('2025-01-19T12:00:00'),
+    longitude: 123.45,
+    latitude: 45.67
+  }
+
+  it(`should calculate correct sign for all planets on 2025-01-19 at 12:00 UT/GMT`, () => {
+    const planets = Lulia(initialConfig).calculate.planets()
+
+    Object.keys(REFERENCE_DATA).forEach(planet => {
+      expect(planets[planet].sign).toBe(REFERENCE_DATA[planet])
+    })
+  })
+
+  Object.keys(REFERENCE_DATA).forEach(planet => {
     it(`should calculate correct sign for ${planet} on 2025-01-19 at 12:00 UT/GMT`, () => {
-      const initialConfig = {
-        date: new Date('2025-01-19T12:00:00'),
-        longitude: 123.45,
-        latitude: 45.67
-      }
+      const result = Lulia(initialConfig).calculate.position(
+        planet as PlanetName
+      )
 
-      const planets = Lulia(initialConfig).calculate.planets()
-
-      Object.keys(planets).forEach(planet => {
-        expect(planets[planet].sign).toBe(REFERENCE_DATA[planet])
-      })
+      expect(result.sign).toBe(REFERENCE_DATA[planet])
     })
   })
 
@@ -37,7 +44,7 @@ describe('Planets calculations', () => {
     const mockEphemerisAdapter = {
       calculateJulianDay: () => 123,
       calculatePlanetPosition: (): PlanetPositon => ({
-        sign: 6,
+        sign: 'libra',
         retrograde: true,
         position: {
           degree: 0,
@@ -54,11 +61,11 @@ describe('Planets calculations', () => {
       latitude: 45.67
     }
 
-    const planets = Lulia(
+    const planetPosition = Lulia(
       initialConfig,
       mockEphemerisAdapter
-    ).calculate.planets()
+    ).calculate.position('sun')
 
-    expect(planets['sun'].sign).toBe('libra')
+    expect(planetPosition.sign).toBe('libra')
   })
 })

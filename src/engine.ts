@@ -1,5 +1,5 @@
 import swisseph from 'swisseph'
-import { PLANETS } from './constants'
+import { PLANETS, SIGNS } from './constants'
 import { PlanetName, PlanetPositon } from './definitions'
 
 export type EphemerisAdapter = {
@@ -45,7 +45,7 @@ export const swissephEngine: EphemerisAdapter = {
 
     return {
       position,
-      sign: split_deg.sign,
+      sign: Object.values(SIGNS)[split_deg.sign],
       retrograde: Boolean(distanceSpeed < 0)
     }
   }
