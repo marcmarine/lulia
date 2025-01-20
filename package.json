@@ -1,7 +1,11 @@
 {
   "name": "lulia",
   "version": "0.0.1",
-  "description": "",
+  "description": "An easy-to-use interface for astronomical calculations.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcmarine/lulia.git"
+  },
   "main": "dist/index.js",
   "exports": "./dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,12 +15,16 @@
     "build": "rolldown --config && npm run build:types",
     "test": "vitest"
   },
-  "author": "",
-  "license": "MIT",
+  "bugs": "https://github.com/marcmarine/lulia/issues/new",
+  "author": "Marc Mariné <shenobi@gmail.com>",
+  "license": "AGPL-3.0",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@types/node": "^22.10.7",
     "dts-bundle-generator": "^9.5.1",
     "rolldown": "^1.0.0-beta.1",
+    "semantic-release": "^24.2.1",
     "vitest": "^3.0.2"
   },
   "peerDependencies": {
@@ -24,5 +32,8 @@
   },
   "dependencies": {
     "swisseph": "^0.5.17"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
