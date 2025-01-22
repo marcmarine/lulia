@@ -1,6 +1,6 @@
 {
   "name": "lulia",
-  "version": "0.0.1",
+  "version": "1.0.0-beta.1",
   "description": "An easy-to-use interface for astronomical calculations.",
   "repository": {
     "type": "git",
