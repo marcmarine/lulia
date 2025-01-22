@@ -6,7 +6,15 @@ export default defineConfig([
     external: ['swisseph'],
     output: {
       dir: 'dist',
-      format: 'commonjs'
+      format: 'module'
+    }
+  },
+  {
+    input: 'src/index.ts',
+    external: ['swisseph'],
+    output: {
+      format: 'commonjs',
+      file: 'dist/index.cjs'
     }
   }
 ])
