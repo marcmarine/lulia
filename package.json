@@ -36,6 +36,13 @@
   "dependencies": {
     "swisseph": "^0.5.17"
   },
+  "keywords": [
+    "astronomy",
+    "ephemeris",
+    "swisseph",
+    "sweph",
+    "astrology"
+  ],
   "files": [
     "dist"
   ]
