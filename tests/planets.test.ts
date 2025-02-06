@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import Lulia from '../src'
-import { PlanetName, PlanetPositon } from '../src/definitions'
+import { HousePositions, PlanetName, PlanetPositon } from '../src/definitions'
 
 describe('Planets calculations', () => {
   const REFERENCE_DATA = {
@@ -50,7 +50,13 @@ describe('Planets calculations', () => {
           degree: 0,
           minute: 0,
           second: 0,
-          longitude: 0
+          eclipticLongitude: 0
+        }
+      }),
+      calculateHouses: (): HousePositions => ({
+        1: {
+          position: { degree: 0, minute: 0, second: 0, eclipticLongitude: 0 },
+          sign: 'taurus'
         }
       })
     }
@@ -61,11 +67,12 @@ describe('Planets calculations', () => {
       latitude: 45.67
     }
 
-    const planetPosition = Lulia(
-      initialConfig,
-      mockEphemerisAdapter
-    ).calculate.position('sun')
+    const lulia = Lulia(initialConfig, mockEphemerisAdapter)
+
+    const planetPosition = lulia.calculate.position('sun')
+    const housePositions = lulia.calculate.houses()
 
     expect(planetPosition.sign).toBe('libra')
+    expect(housePositions[1].sign).toBe('taurus')
   })
 })
