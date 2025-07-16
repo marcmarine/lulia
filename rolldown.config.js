@@ -3,7 +3,7 @@ import { defineConfig } from 'rolldown'
 export default defineConfig([
   {
     input: 'src/index.ts',
-    external: ['swisseph'],
+    external: ['sweph'],
     output: {
       dir: 'dist',
       format: 'module'
@@ -11,7 +11,7 @@ export default defineConfig([
   },
   {
     input: 'src/index.ts',
-    external: ['swisseph'],
+    external: ['sweph'],
     output: {
       format: 'commonjs',
       file: 'dist/index.cjs'

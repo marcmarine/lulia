@@ -1,46 +1,26 @@
-import swisseph from 'swisseph'
+import sweph from 'sweph'
 import { PLANETS, SIGNS } from './constants'
 import { HousePositions, PlanetName, PlanetPositon } from './definitions'
 
 export type EphemerisAdapter = {
-  calculateJulianDay: (
-    year: number,
-    month: number,
-    day: number,
-    hour: number
-  ) => number
-  calculatePlanetPosition: (
-    planet: PlanetName,
-    julianDay: number
-  ) => PlanetPositon
-  calculateHouses: (
-    julianDay: number,
-    latitude: number,
-    longitude: number
-  ) => HousePositions
+  calculateJulianDay: (year: number, month: number, day: number, hour: number) => number
+  calculatePlanetPosition: (planet: PlanetName, julianDay: number) => PlanetPositon
+  calculateHouses: (julianDay: number, latitude: number, longitude: number) => HousePositions
 }
 
 export const swissephEngine: EphemerisAdapter = {
-  calculateJulianDay: (year, month, day, hour) =>
-    swisseph.swe_julday(year, month, day, hour, swisseph.SE_GREG_CAL),
+  calculateJulianDay: (year, month, day, hour) => sweph.julday(year, month, day, hour, sweph.constants.SE_GREG_CAL),
 
   calculatePlanetPosition: (planet, julday) => {
     const planetIndex = Object.values(PLANETS).indexOf(planet)
 
-    const { longitude: eclipticLongitude, distanceSpeed } =
-      swisseph.swe_calc_ut(julday, planetIndex, swisseph.SEFLG_SPEED) as {
-        longitude: number
-        distanceSpeed: number
-      }
+    const [eclipticLongitude, , , longitudeSpeed] = sweph.calc_ut(julday, planetIndex, sweph.constants.SEFLG_SPEED).data
 
-    const split_deg = swisseph.swe_split_deg(
-      eclipticLongitude,
-      swisseph.SE_SPLIT_DEG_ZODIACAL
-    )
+    const split_deg = sweph.split_deg(eclipticLongitude, sweph.constants.SE_SPLIT_DEG_ZODIACAL)
 
     const position = {
       degree: split_deg.degree,
-      minute: split_deg.min,
+      minute: split_deg.minute,
       second: split_deg.second,
       eclipticLongitude
     }
@@ -48,24 +28,19 @@ export const swissephEngine: EphemerisAdapter = {
     return {
       position,
       sign: Object.values(SIGNS)[split_deg.sign],
-      retrograde: Boolean(distanceSpeed < 0)
+      retrograde: Boolean(longitudeSpeed < 0)
     }
   },
 
   calculateHouses: (julday, latitude, longitude) => {
-    const { house } = swisseph.swe_houses(julday, latitude, longitude, 'P') as {
-      house: number[]
-    }
+    const { houses } = sweph.houses(julday, latitude, longitude, 'P').data
 
-    return house.reduce((accumulator, eclipticLongitude, index) => {
-      const split_deg = swisseph.swe_split_deg(
-        eclipticLongitude,
-        swisseph.SE_SPLIT_DEG_ZODIACAL
-      )
+    return houses.reduce((accumulator, eclipticLongitude, index) => {
+      const split_deg = sweph.split_deg(eclipticLongitude, sweph.constants.SE_SPLIT_DEG_ZODIACAL)
 
       const position = {
         degree: split_deg.degree,
-        minute: split_deg.min,
+        minute: split_deg.minute,
         second: split_deg.second,
         eclipticLongitude
       }
