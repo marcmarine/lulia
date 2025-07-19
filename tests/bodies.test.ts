@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import Lulia from '../src'
 import { HousePositions, BodyPositon } from '../src/definitions'
+import Lulia from '../src'
 
 describe('Bodies calculations', () => {
   const REFERENCE_DATA = {
@@ -34,6 +34,7 @@ describe('Bodies calculations', () => {
     const mockEphemerisAdapter = {
       calculateJulianDay: () => 123,
       calculateBodyPosition: (): BodyPositon => ({
+        name: 'sun',
         sign: 'libra',
         retrograde: true,
         position: {

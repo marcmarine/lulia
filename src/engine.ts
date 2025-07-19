@@ -11,8 +11,8 @@ export type EphemerisAdapter = {
 export const swissephEngine: EphemerisAdapter = {
   calculateJulianDay: (year, month, day, hour) => sweph.julday(year, month, day, hour, sweph.constants.SE_GREG_CAL),
 
-  calculateBodyPosition: (body, julday): BodyPositon => {
-    const bodyIndex = Object.values(BODIES).indexOf(body)
+  calculateBodyPosition: (bodyName, julday): BodyPositon => {
+    const bodyIndex = Object.values(BODIES).indexOf(bodyName)
 
     const [longitude, , , longitudeSpeed] = sweph.calc_ut(julday, bodyIndex, sweph.constants.SEFLG_SPEED).data
 
@@ -26,6 +26,7 @@ export const swissephEngine: EphemerisAdapter = {
     }
 
     return {
+      name: bodyName,
       position,
       sign: Object.values(SIGNS)[split_deg.sign],
       retrograde: Boolean(longitudeSpeed < 0)
