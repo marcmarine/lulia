@@ -1,6 +1,6 @@
-import { PLANETS, SIGNS } from './constants'
+import { BODIES, SIGNS } from './constants'
 
-export type PlanetName = (typeof PLANETS)[keyof typeof PLANETS]
+export type BodyName = (typeof BODIES)[keyof typeof BODIES]
 
 export type Sign = (typeof SIGNS)[keyof typeof SIGNS]
 
@@ -11,7 +11,7 @@ export type Position = {
   eclipticLongitude: number
 }
 
-export type PlanetPositon = {
+export type BodyPositon = {
   position: Position
   retrograde: boolean
   sign: Sign

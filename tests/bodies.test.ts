@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import Lulia from '../src'
-import { HousePositions, PlanetName, PlanetPositon } from '../src/definitions'
+import { HousePositions, BodyName, BodyPositon } from '../src/definitions'
 
-describe('Planets calculations', () => {
+describe('Bodies calculations', () => {
   const REFERENCE_DATA = {
     sun: 'capricorn',
     moon: 'libra',
@@ -22,28 +22,18 @@ describe('Planets calculations', () => {
     latitude: 45.67
   }
 
-  it(`should calculate correct sign for all planets on 2025-01-19 at 12:00 UT/GMT`, () => {
-    const planets = Lulia(initialConfig).calculate.planets()
+  it(`should calculate correct sign for all bodies on 2025-01-19 at 12:00 UT/GMT`, () => {
+    const bodies = Lulia(initialConfig).bodies()
 
-    Object.keys(REFERENCE_DATA).forEach(planet => {
-      expect(planets[planet].sign).toBe(REFERENCE_DATA[planet])
-    })
-  })
-
-  Object.keys(REFERENCE_DATA).forEach(planet => {
-    it(`should calculate correct sign for ${planet} on 2025-01-19 at 12:00 UT/GMT`, () => {
-      const result = Lulia(initialConfig).calculate.position(
-        planet as PlanetName
-      )
-
-      expect(result.sign).toBe(REFERENCE_DATA[planet])
+    Object.keys(REFERENCE_DATA).forEach(body => {
+      expect(bodies[body].sign).toBe(REFERENCE_DATA[body])
     })
   })
 
   it('should support a custom engine adapter', () => {
     const mockEphemerisAdapter = {
       calculateJulianDay: () => 123,
-      calculatePlanetPosition: (): PlanetPositon => ({
+      calculateBodyPosition: (): BodyPositon => ({
         sign: 'libra',
         retrograde: true,
         position: {
@@ -69,10 +59,10 @@ describe('Planets calculations', () => {
 
     const lulia = Lulia(initialConfig, mockEphemerisAdapter)
 
-    const planetPosition = lulia.calculate.position('sun')
-    const housePositions = lulia.calculate.houses()
+    const bodyPositions = lulia.bodies()
+    const housePositions = lulia.houses()
 
-    expect(planetPosition.sign).toBe('libra')
+    expect(bodyPositions['sun'].sign).toBe('libra')
     expect(housePositions[1].sign).toBe('taurus')
   })
 })

@@ -28,15 +28,15 @@ const lulia = Lulia({
   longitude: 2.154007
 })
 
-const positions = lulia.calculate.planets()
+const positions = lulia.bodies()
 
 console.log(positions)
 ```
 
 > [!NOTE]
-> Position values will not required in future releases to calculate the positions of the planets.
+> Position values will not required in future releases to calculate the positions of the celestial bodies.
 
-This will retrieve an object with position information about planets. It means for the main ten astronomical bodies.
+This will retrieve an object with position information about celestial bodies. It means for the main ten astronomical bodies.
 
 ```js
 {
@@ -60,7 +60,7 @@ This will retrieve an object with position information about planets. It means f
     sign: "cancer",
     retrograde: false
   },
-  // ...Rest of planets
+  // ...Rest of bodies
 }
 ```
 
