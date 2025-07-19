@@ -11,18 +11,18 @@ export type EphemerisAdapter = {
 export const swissephEngine: EphemerisAdapter = {
   calculateJulianDay: (year, month, day, hour) => sweph.julday(year, month, day, hour, sweph.constants.SE_GREG_CAL),
 
-  calculateBodyPosition: (body, julday) => {
+  calculateBodyPosition: (body, julday): BodyPositon => {
     const bodyIndex = Object.values(BODIES).indexOf(body)
 
-    const [eclipticLongitude, , , longitudeSpeed] = sweph.calc_ut(julday, bodyIndex, sweph.constants.SEFLG_SPEED).data
+    const [longitude, , , longitudeSpeed] = sweph.calc_ut(julday, bodyIndex, sweph.constants.SEFLG_SPEED).data
 
-    const split_deg = sweph.split_deg(eclipticLongitude, sweph.constants.SE_SPLIT_DEG_ZODIACAL)
+    const split_deg = sweph.split_deg(longitude, sweph.constants.SE_SPLIT_DEG_ZODIACAL)
 
     const position = {
       degree: split_deg.degree,
       minute: split_deg.minute,
       second: split_deg.second,
-      eclipticLongitude
+      longitude
     }
 
     return {
@@ -32,17 +32,17 @@ export const swissephEngine: EphemerisAdapter = {
     }
   },
 
-  calculateHouses: (julday, latitude, longitude) => {
+  calculateHouses: (julday, latitude, longitude): HousePositions => {
     const { houses } = sweph.houses(julday, latitude, longitude, 'P').data
 
-    return houses.reduce((accumulator, eclipticLongitude, index) => {
-      const split_deg = sweph.split_deg(eclipticLongitude, sweph.constants.SE_SPLIT_DEG_ZODIACAL)
+    const result = houses.reduce<HousePositions>((accumulator, longitude, index) => {
+      const split_deg = sweph.split_deg(longitude, sweph.constants.SE_SPLIT_DEG_ZODIACAL)
 
       const position = {
         degree: split_deg.degree,
         minute: split_deg.minute,
         second: split_deg.second,
-        eclipticLongitude
+        longitude
       }
 
       return {
@@ -50,5 +50,7 @@ export const swissephEngine: EphemerisAdapter = {
         [index + 1]: { position, sign: Object.values(SIGNS)[split_deg.sign] }
       }
     }, {})
+
+    return result
   }
 }
