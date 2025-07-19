@@ -1,3 +1,11 @@
+# [1.0.0-beta.4](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2025-07-19)
+
+
+### Features
+
+* Introduce aspect calculation functionality ([a6f7af9](https://github.com/marcmarine/lulia/commit/a6f7af9a9c86be4aa4005e08497acfb4c2f0609f))
+* Removes eclipticLongitude from Position type ([d7a5cb4](https://github.com/marcmarine/lulia/commit/d7a5cb4f3a4f222f392ddbe7966056696715b1e9))
+
 # [1.0.0-beta.3](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2025-07-16)
 
 
