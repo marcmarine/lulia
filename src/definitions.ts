@@ -8,7 +8,6 @@ export type Position = {
   degree: number
   minute: number
   second: number
-  eclipticLongitude: number
 }
 
 export type BodyPositon = {

@@ -39,13 +39,12 @@ describe('Bodies calculations', () => {
         position: {
           degree: 0,
           minute: 0,
-          second: 0,
-          eclipticLongitude: 0
+          second: 0
         }
       }),
       calculateHouses: (): HousePositions => ({
         1: {
-          position: { degree: 0, minute: 0, second: 0, eclipticLongitude: 0 },
+          position: { degree: 0, minute: 0, second: 0 },
           sign: 'taurus'
         }
       })
