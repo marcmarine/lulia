@@ -1,19 +1,19 @@
 import { validateConfig, validationRules, type LuliaConfig } from './config'
 import { EphemerisAdapter, swissephEngine } from './engine'
-import { calculateBodies } from './bodies'
-import { calculateHouses } from './houses'
+import { calculateBodies as _calculateBodies } from './bodies'
+import { calculateHouses as _calculateHouses } from './houses'
 
 export default (initialConfig: LuliaConfig, engine: EphemerisAdapter = swissephEngine) => {
   const validatedConfig = validateConfig(initialConfig, validationRules)
 
-  const bodies = () => calculateBodies(validatedConfig, engine)
-  const houses = () => calculateHouses(validatedConfig, engine)
+  const calculateBodies = () => _calculateBodies(validatedConfig, engine)
+  const calculateHouses = () => _calculateHouses(validatedConfig, engine)
 
   const getConfig = () => validatedConfig
 
   return {
-    bodies,
-    houses,
+    calculateBodies,
+    calculateHouses,
     getConfig
   }
 }

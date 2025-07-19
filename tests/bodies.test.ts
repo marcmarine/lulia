@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import Lulia from '../src'
-import { HousePositions, BodyName, BodyPositon } from '../src/definitions'
+import { HousePositions, BodyPositon } from '../src/definitions'
 
 describe('Bodies calculations', () => {
   const REFERENCE_DATA = {
@@ -23,7 +23,7 @@ describe('Bodies calculations', () => {
   }
 
   it(`should calculate correct sign for all bodies on 2025-01-19 at 12:00 UT/GMT`, () => {
-    const bodies = Lulia(initialConfig).bodies()
+    const bodies = Lulia(initialConfig).calculateBodies()
 
     Object.keys(REFERENCE_DATA).forEach(body => {
       expect(bodies[body].sign).toBe(REFERENCE_DATA[body])
@@ -59,8 +59,8 @@ describe('Bodies calculations', () => {
 
     const lulia = Lulia(initialConfig, mockEphemerisAdapter)
 
-    const bodyPositions = lulia.bodies()
-    const housePositions = lulia.houses()
+    const bodyPositions = lulia.calculateBodies()
+    const housePositions = lulia.calculateHouses()
 
     expect(bodyPositions['sun'].sign).toBe('libra')
     expect(housePositions[1].sign).toBe('taurus')

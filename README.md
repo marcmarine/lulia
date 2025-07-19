@@ -28,7 +28,7 @@ const lulia = Lulia({
   longitude: 2.154007
 })
 
-const positions = lulia.bodies()
+const positions = lulia.calculateBodies()
 
 console.log(positions)
 ```

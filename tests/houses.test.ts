@@ -9,7 +9,7 @@ describe('Houses calculations', () => {
       date: new Date('2025-02-06T23:10:25.000Z'),
       latitude: 41.390205,
       longitude: 2.154007
-    }).houses()
+    }).calculateHouses()
 
     expect(Object.keys(houses).length).toBe(12)
   })
@@ -19,7 +19,7 @@ describe('Houses calculations', () => {
       date: new Date('2025-02-06T23:10:25.000Z'),
       latitude: 41.390205,
       longitude: 2.154007
-    }).houses()
+    }).calculateHouses()
 
     expectedHouseSigns.forEach((expectedSign, index) => expect(houses[index + 1].sign).toBe(expectedSign))
   })
