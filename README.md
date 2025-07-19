@@ -9,8 +9,6 @@ An easy-to-use interface for astronomical calculations in JavaScript.
 
 ## Installation
 
-Currently, it is necessary to use npm since `swisseph` for Node.js relies on it.
-
 ```bash
 npm install lulia@beta
 ```
