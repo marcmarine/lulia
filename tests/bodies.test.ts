@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { HousePositions, BodyPositon } from '../src/definitions'
+import { Houses, CelestialBody } from '../src/definitions'
 import Lulia from '../src'
 
 describe('Bodies calculations', () => {
@@ -25,31 +25,26 @@ describe('Bodies calculations', () => {
   it(`should calculate correct sign for all bodies on 2025-01-19 at 12:00 UT/GMT`, () => {
     const bodies = Lulia(initialConfig).calculateBodies()
 
-    Object.keys(REFERENCE_DATA).forEach(body => {
-      expect(bodies[body].sign).toBe(REFERENCE_DATA[body])
+    Object.keys(REFERENCE_DATA).forEach(name => {
+      expect(bodies.find(body => body.name === name)?.zodiacSign).toBe(REFERENCE_DATA[name])
     })
   })
 
   it('should support a custom engine adapter', () => {
     const mockEphemerisAdapter = {
       calculateJulianDay: () => 123,
-      calculateBodyPosition: (): BodyPositon => ({
+      calculateBodyPosition: (): CelestialBody => ({
         name: 'sun',
-        sign: 'libra',
-        retrograde: true,
-        position: {
+        zodiacSign: 'libra',
+        isRetrograde: true,
+        longitude: {
           degree: 0,
           minute: 0,
           second: 0,
-          longitude: 0
+          decimal: 0
         }
       }),
-      calculateHouses: (): HousePositions => ({
-        1: {
-          position: { degree: 0, minute: 0, second: 0, longitude: 0 },
-          sign: 'taurus'
-        }
-      })
+      calculateHouses: (): Houses => [{ longitude: { degree: 0, minute: 0, second: 0, decimal: 0 }, zodiacSign: 'taurus' }]
     }
 
     const initialConfig = {
@@ -60,10 +55,10 @@ describe('Bodies calculations', () => {
 
     const lulia = Lulia(initialConfig, mockEphemerisAdapter)
 
-    const bodyPositions = lulia.calculateBodies()
+    const bodies = lulia.calculateBodies()
     const housePositions = lulia.calculateHouses()
 
-    expect(bodyPositions['sun'].sign).toBe('libra')
-    expect(housePositions[1].sign).toBe('taurus')
+    expect(bodies.find(body => body.name === 'sun')?.zodiacSign).toBe('libra')
+    expect(housePositions[0].zodiacSign).toBe('taurus')
   })
 })

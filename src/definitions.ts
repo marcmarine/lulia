@@ -1,43 +1,39 @@
 import { ASPECTS, BODIES, SIGNS } from './constants'
 
 export type BodyName = (typeof BODIES)[keyof typeof BODIES]
+export type SignName = (typeof SIGNS)[keyof typeof SIGNS]
+export type AspectType = (typeof ASPECTS)[keyof typeof ASPECTS]
+export type HousePosition = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
-export type Sign = (typeof SIGNS)[keyof typeof SIGNS]
-
-export type Position = {
+export type LongitudeCoordinates = {
   degree: number
   minute: number
   second: number
-  longitude: number
+  decimal: number
 }
 
-export type BodyPositon = {
+export type CelestialBody = {
   name: BodyName
-  position: Position
-  retrograde: boolean
-  sign: Sign
+  longitude: LongitudeCoordinates
+  isRetrograde: boolean
+  zodiacSign: SignName
+  housePosition?: HousePosition
 }
 
-export type HousePosition = {
-  position: Position
-  sign: Sign
+export type House = {
+  longitude: LongitudeCoordinates
+  zodiacSign: SignName
 }
-
-export type HousePositions = Record<number, HousePosition>
-
-export type AspectName = (typeof ASPECTS)[keyof typeof ASPECTS]
 
 export type AspectAngle = keyof typeof ASPECTS
 
-export interface AspectDetail {
-  with: BodyName
-  angle: number
-  orb: number
-  offset: Position
+export interface Aspect {
+  type: AspectType
+  targetBody: BodyName
+  orbAllowance: number
+  deviation: LongitudeCoordinates
 }
 
-export type BodyAspects = {
-  [key in AspectName]?: AspectDetail[]
-}
-
-export type AspectsByBody = Record<BodyName, BodyAspects>
+export type CelestialBodies = CelestialBody[]
+export type Aspects = Aspect[]
+export type Houses = House[]

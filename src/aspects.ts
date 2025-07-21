@@ -1,15 +1,15 @@
 import { ASPECTS, ORBS } from './constants'
-import type { AspectAngle, AspectName, AspectsByBody, BodyName, BodyPositon } from './definitions'
+import type { AspectAngle, AspectType, Aspects, CelestialBody, CelestialBodies, BodyName } from './definitions'
 import { decimalToDMS, normalizeDegrees } from './utils'
 
-function getLongitudeDiff([a, b]: BodyPositon[]): number {
-  const longitudeA = normalizeDegrees(a.position.longitude)
-  const longitudeB = normalizeDegrees(b.position.longitude)
+function getLongitudeDiff([a, b]: CelestialBody[]): number {
+  const longitudeA = normalizeDegrees(a.longitude.decimal)
+  const longitudeB = normalizeDegrees(b.longitude.decimal)
 
   return Math.abs(longitudeA - longitudeB)
 }
 
-function findMatchingAspect(diff: number): { angle: number; orb: number; name: AspectName; offset: number } | null {
+function findMatchingAspect(diff: number): { orb: number; type: AspectType; offset: number } | null {
   for (const angleStr of Object.keys(ASPECTS)) {
     const angle = parseFloat(angleStr)
     const orb = ORBS[angle as AspectAngle]
@@ -21,9 +21,8 @@ function findMatchingAspect(diff: number): { angle: number; orb: number; name: A
       const offset = diff - angle
 
       return {
-        angle,
         orb,
-        name: ASPECTS[angle as AspectAngle],
+        type: ASPECTS[angle as AspectAngle],
         offset
       }
     }
@@ -31,12 +30,11 @@ function findMatchingAspect(diff: number): { angle: number; orb: number; name: A
   return null
 }
 
-export function aspect([first, second]: BodyPositon[]):
+export function aspect([first, second]: CelestialBody[]):
   | {
-      angle: number
       orb: number
       offset: number
-      name: AspectName
+      type: AspectType
       bodies: BodyName[]
     }
   | undefined {
@@ -45,44 +43,35 @@ export function aspect([first, second]: BodyPositon[]):
   if (!match) return undefined
 
   return {
-    angle: match.angle,
     orb: match.orb,
     offset: match.offset,
-    name: match.name,
+    type: match.type,
     bodies: [first.name, second.name]
   }
 }
 
-export function aspects(bodies: Record<BodyName, BodyPositon>): AspectsByBody {
-  const result: AspectsByBody = {} as AspectsByBody
+export function aspects(bodies: CelestialBodies): Record<BodyName, Aspects> {
+  const result: Record<BodyName, Aspects> = {} as any
 
-  const keys = Object.keys(bodies)
+  for (let i = 0; i < bodies.length; i++) {
+    const bodyA = bodies[i]
+    result[bodyA.name] = []
 
-  for (let i = 0; i < keys.length; i++) {
-    const keyA = keys[i]
-    const bodyA = bodies[keyA as BodyName]
-    result[bodyA.name] = {}
-
-    for (let j = 0; j < keys.length; j++) {
+    for (let j = 0; j < bodies.length; j++) {
       if (i === j) continue
 
-      const keyB = keys[j]
-      const bodyB = bodies[keyB as BodyName]
+      const bodyB = bodies[j]
 
       const aspectData = aspect([bodyA, bodyB])
       if (!aspectData) continue
 
-      const { name, angle, orb, offset, bodies: aspectedBodies } = aspectData
+      const { type, orb, offset, bodies: aspectedBodies } = aspectData
 
-      if (!result[bodyA.name][name]) {
-        result[bodyA.name][name] = []
-      }
-
-      result[bodyA.name][name]?.push({
-        with: aspectedBodies[1],
-        angle,
-        offset: decimalToDMS(offset),
-        orb
+      result[bodyA.name].push({
+        type,
+        targetBody: aspectedBodies[1],
+        deviation: decimalToDMS(offset),
+        orbAllowance: orb
       })
     }
   }

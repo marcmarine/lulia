@@ -11,7 +11,7 @@ describe('Houses calculations', () => {
       longitude: 2.154007
     }).calculateHouses()
 
-    expect(Object.keys(houses).length).toBe(12)
+    expect(houses.length).toBe(12)
   })
 
   it('should correctly determine the zodiac signs for each astrological house based on a given date and location', () => {
@@ -21,6 +21,6 @@ describe('Houses calculations', () => {
       longitude: 2.154007
     }).calculateHouses()
 
-    expectedHouseSigns.forEach((expectedSign, index) => expect(houses[index + 1].sign).toBe(expectedSign))
+    expectedHouseSigns.forEach((expectedSign, index) => expect(houses[index].zodiacSign).toBe(expectedSign))
   })
 })

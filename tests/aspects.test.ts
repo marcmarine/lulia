@@ -9,21 +9,12 @@ describe('Aspects calculations', () => {
       latitude: 45.67
     }
 
-    const bodies = Lulia(initialConfig).calculateAspects()
+    const aspects = Lulia(initialConfig).calculateAspects()
+    const aspect = aspects.sun[0]
 
-    expect(bodies).toHaveProperty('sun')
-    expect(bodies.sun).toBeTypeOf('object')
+    expect(aspects).toHaveProperty('sun')
 
-    if (bodies.sun.trigone && bodies.sun.trigone.length > 0) {
-      const trigoneAspect = bodies.sun.trigone[0]
-
-      expect(trigoneAspect).toHaveProperty('with')
-      expect(trigoneAspect).toHaveProperty('offset')
-      expect(trigoneAspect).toHaveProperty('orb')
-
-      expect(typeof trigoneAspect.with).toBe('string')
-
-      expect(typeof trigoneAspect.offset).toBe('object')
-    }
+    expect(aspect).toHaveProperty('type')
+    expect(aspect.type).toBe('trigone')
   })
 })

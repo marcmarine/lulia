@@ -1,8 +1,8 @@
 import { LuliaConfig } from './config'
-import { HousePositions } from './definitions'
+import { Houses } from './definitions'
 import { EphemerisAdapter } from './engine'
 
-function calculateHouses(config: LuliaConfig, engine: EphemerisAdapter): HousePositions {
+function calculateHouses(config: LuliaConfig, engine: EphemerisAdapter): Houses {
   const { date, latitude, longitude } = config
   const julianDay = engine.calculateJulianDay(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours())
 

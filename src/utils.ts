@@ -1,4 +1,4 @@
-import { Position } from './definitions'
+import { LongitudeCoordinates } from './definitions'
 
 export function normalizeDegrees(degrees: number): number {
   if (degrees < -180) {
@@ -10,9 +10,9 @@ export function normalizeDegrees(degrees: number): number {
   return degrees
 }
 
-export function decimalToDMS(longitude: number): Position {
-  const sign = longitude < 0 ? -1 : 1
-  const absVal = Math.abs(longitude)
+export function decimalToDMS(decimal: number): LongitudeCoordinates {
+  const sign = decimal < 0 ? -1 : 1
+  const absVal = Math.abs(decimal)
 
   const degree = Math.floor(absVal) * sign
   const minutesFull = (absVal - Math.floor(absVal)) * 60
@@ -24,6 +24,6 @@ export function decimalToDMS(longitude: number): Position {
     degree,
     minute,
     second,
-    longitude
+    decimal
   }
 }
