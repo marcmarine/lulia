@@ -1,3 +1,12 @@
+# [1.0.0-beta.5](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2025-07-21)
+
+
+### Features
+
+* Add house position calculation for celestial bodies ([7e3626f](https://github.com/marcmarine/lulia/commit/7e3626fde4dc5c6f8fac1286067cb0cb093d7487))
+* Improve celestial model data structures ([76cc4b9](https://github.com/marcmarine/lulia/commit/76cc4b93702fc6bf86a1e5e5df5f8d54f89f43bb))
+* Make longitude and latitude optional in config ([0fc3446](https://github.com/marcmarine/lulia/commit/0fc3446be88b1bf3ec909afb70c15000f1390fb3))
+
 # [1.0.0-beta.4](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2025-07-19)
 
 
