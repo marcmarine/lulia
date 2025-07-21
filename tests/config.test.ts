@@ -14,6 +14,16 @@ describe('Configurations', () => {
     }).not.toThrow()
   })
 
+  it('should accept undefined longitude and latitude', () => {
+    const configWithUndefined = {
+      date: new Date()
+    }
+
+    expect(() => {
+      Lulia(configWithUndefined)
+    }).not.toThrow()
+  })
+
   it('should throw error when date is invalid', () => {
     const invalidConfig = {
       date: new Date('invalid'),

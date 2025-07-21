@@ -5,7 +5,7 @@ import type { BodyName, CelestialBody, Houses } from './definitions'
 export type EphemerisAdapter = {
   calculateJulianDay: (year: number, month: number, day: number, hour: number) => number
   calculateBodyPosition: (name: BodyName, julianDay: number) => CelestialBody
-  calculateHouses: (julianDay: number, latitude: number, longitude: number) => Houses
+  calculateHouses: (julianDay: number, latitude?: number, longitude?: number) => Houses
 }
 
 export const swissephEngine: EphemerisAdapter = {
@@ -34,6 +34,10 @@ export const swissephEngine: EphemerisAdapter = {
   },
 
   calculateHouses: (julday, latitude, longitude): Houses => {
+    if (latitude === undefined || longitude === undefined) {
+      throw new Error('Latitude and longitude are required to calculate houses.')
+    }
+
     const { houses } = sweph.houses(julday, latitude, longitude, 'P').data
 
     return houses.map(long => {
