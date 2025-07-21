@@ -3,6 +3,7 @@
 An easy-to-use interface for astronomical calculations in JavaScript.
 
 [![NPM Version (with dist tag)](https://img.shields.io/npm/v/lulia/beta)](https://www.npmjs.com/package/lulia)
+[![View Changelog](https://img.shields.io/badge/view-CHANGELOG.md-white.svg)](https://github.com/marcmarine/lulia/releases)
 
 > [!WARNING]
 > Beta version - Breaking changes may be possible.
@@ -21,45 +22,47 @@ Simply create an instance passing the basic configuration including `date` and p
 import Lulia from 'lulia'
 
 const lulia = Lulia({
-  date: new Date('1813-05-5T12:00:00'),
-  latitude: 41.390205,
-  longitude: 2.154007
+  date: new Date('2025-01-19T12:00:00'),
+  longitude: 123.45,
+  latitude: 45.67
 })
 
 const positions = lulia.calculateBodies()
-
-console.log(positions)
 ```
 
 > [!NOTE]
 > Position values will not required in future releases to calculate the positions of the celestial bodies.
 
-This will retrieve an object with position information about celestial bodies. It means for the main ten astronomical bodies.
+This will retrieve an array with position information about celestial bodies. It means for the main ten astronomical bodies.
 
 ```js
-{
-  sun: {
-    position: {
-      degree: 14,
-      minute: 30,
-      second: 45,
-      longitude: 44.51256755686774
+;[
+  {
+    name: 'sun',
+    longitude: {
+      degree: 29,
+      minute: 37,
+      second: 5,
+      decimal: 299.6182666649856
     },
-    sign: "taurus",
-    retrograde: false
+    zodiacSign: 'capricorn',
+    isRetrograde: false,
+    housePosition: 9
   },
-  moon: {
-    position: {
-      degree: 20,
-      minute: 43,
-      second: 11,
-      longitude: 110.7199096719274
+  {
+    name: 'moon',
+    longitude: {
+      degree: 3,
+      minute: 42,
+      second: 28,
+      decimal: 183.7080303933929
     },
-    sign: "cancer",
-    retrograde: false
-  },
+    zodiacSign: 'libra',
+    isRetrograde: false,
+    housePosition: 5
+  }
   // ...Rest of bodies
-}
+]
 ```
 
 ## Feedback
