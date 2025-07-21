@@ -1,4 +1,4 @@
-import { LongitudeCoordinates } from './definitions'
+import { Houses, Longitude } from './definitions'
 
 export function normalizeDegrees(degrees: number): number {
   if (degrees < -180) {
@@ -10,7 +10,7 @@ export function normalizeDegrees(degrees: number): number {
   return degrees
 }
 
-export function decimalToDMS(decimal: number): LongitudeCoordinates {
+export function decimalToDMS(decimal: number): Longitude {
   const sign = decimal < 0 ? -1 : 1
   const absVal = Math.abs(decimal)
 
@@ -26,4 +26,24 @@ export function decimalToDMS(decimal: number): LongitudeCoordinates {
     second,
     decimal
   }
+}
+
+export function findHouseForLongitude(houses: Houses, longitude: number): number {
+  for (let houseIndex = 0; houseIndex < houses.length; houseIndex++) {
+    const currentHouseCusp = houses[houseIndex].longitude.decimal
+    const nextHouseCusp = houses[(houseIndex + 1) % 12].longitude.decimal
+
+    if (isInHouseBoundaries(longitude, currentHouseCusp, nextHouseCusp)) {
+      return houseIndex + 1
+    }
+  }
+
+  return 1
+}
+
+export function isInHouseBoundaries(planetLong: number, houseStart: number, houseEnd: number): boolean {
+  if (houseStart > houseEnd) {
+    return planetLong >= houseStart || planetLong < houseEnd
+  }
+  return planetLong >= houseStart && planetLong < houseEnd
 }

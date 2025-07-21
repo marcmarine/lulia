@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { Houses, CelestialBody } from '../src/definitions'
 import Lulia from '../src'
+import { SIGNS } from '../src/constants'
 
 describe('Bodies calculations', () => {
   const REFERENCE_DATA = {
@@ -44,7 +45,7 @@ describe('Bodies calculations', () => {
           decimal: 0
         }
       }),
-      calculateHouses: (): Houses => [{ longitude: { degree: 0, minute: 0, second: 0, decimal: 0 }, zodiacSign: 'taurus' }]
+      calculateHouses: (): Houses => [...Array(12).keys()].map(index => ({ longitude: { degree: 0, minute: 0, second: 0, decimal: 0 }, zodiacSign: Object.values(SIGNS)[index] }))
     }
 
     const initialConfig = {
@@ -59,6 +60,6 @@ describe('Bodies calculations', () => {
     const housePositions = lulia.calculateHouses()
 
     expect(bodies.find(body => body.name === 'sun')?.zodiacSign).toBe('libra')
-    expect(housePositions[0].zodiacSign).toBe('taurus')
+    expect(housePositions[1].zodiacSign).toBe('taurus')
   })
 })

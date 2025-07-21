@@ -5,7 +5,7 @@ export type SignName = (typeof SIGNS)[keyof typeof SIGNS]
 export type AspectType = (typeof ASPECTS)[keyof typeof ASPECTS]
 export type HousePosition = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
-export type LongitudeCoordinates = {
+export type Longitude = {
   degree: number
   minute: number
   second: number
@@ -14,14 +14,14 @@ export type LongitudeCoordinates = {
 
 export type CelestialBody = {
   name: BodyName
-  longitude: LongitudeCoordinates
+  longitude: Longitude
   isRetrograde: boolean
   zodiacSign: SignName
   housePosition?: HousePosition
 }
 
 export type House = {
-  longitude: LongitudeCoordinates
+  longitude: Longitude
   zodiacSign: SignName
 }
 
@@ -31,7 +31,7 @@ export interface Aspect {
   type: AspectType
   targetBody: BodyName
   orbAllowance: number
-  deviation: LongitudeCoordinates
+  deviation: Longitude
 }
 
 export type CelestialBodies = CelestialBody[]
