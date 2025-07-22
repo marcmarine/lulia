@@ -6,7 +6,8 @@ import { findHouseForLongitude } from './utils'
 
 function calculateBodies(config: LuliaConfig, engine: EphemerisAdapter): CelestialBodies {
   const { date, longitude, latitude } = config
-  const julianDay = engine.calculateJulianDay(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours())
+
+  const julianDay = engine.calculateJulianDay(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes())
 
   return Object.values(BODIES).map(name => {
     const celestialBody = engine.calculateBodyPosition(name, julianDay)
