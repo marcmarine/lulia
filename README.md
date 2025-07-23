@@ -23,15 +23,12 @@ import Lulia from 'lulia'
 
 const lulia = Lulia({
   date: new Date('2025-01-19T12:00:00'),
-  longitude: 123.45,
-  latitude: 45.67
+  longitude: 41.38879,
+  latitude: 2.15899
 })
 
 const positions = lulia.calculateBodies()
 ```
-
-> [!NOTE]
-> Position values will not required in future releases to calculate the positions of the celestial bodies.
 
 This will retrieve an array with position information about celestial bodies. It means for the main ten astronomical bodies.
 
