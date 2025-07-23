@@ -3,6 +3,7 @@ import { EphemerisAdapter, swissephEngine } from './engine'
 import { bodies } from './bodies'
 import { houses } from './houses'
 import { aspects } from './aspects'
+import { createBuilder } from './builder'
 
 export default (initialState: LuliaState, engine: EphemerisAdapter = swissephEngine) => {
   const validatedState = validateState(initialState, validationRules)
@@ -20,3 +21,5 @@ export default (initialState: LuliaState, engine: EphemerisAdapter = swissephEng
     getState
   }
 }
+
+export const Lulia = createBuilder()

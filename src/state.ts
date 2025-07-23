@@ -11,6 +11,12 @@ interface ValidationRule<T> {
   message: string
 }
 
+export const createState = (): LuliaState => ({
+  dateTime: new Date(),
+  latitude: undefined,
+  longitude: undefined
+})
+
 export const validationRules = {
   dateTime: {
     validate: (value: unknown): boolean => value instanceof Date && !isNaN(value.getTime()),
@@ -33,4 +39,14 @@ export const validateState = <T extends object>(state: T, rules: Record<keyof T,
     }
   }
   return state
+}
+
+export const validateCoordinates = (latitude: unknown, longitude: unknown): void => {
+  if (!validationRules.latitude.validate(latitude)) {
+    throw new ValidationError(validationRules.latitude.message)
+  }
+
+  if (!validationRules.longitude.validate(longitude)) {
+    throw new ValidationError(validationRules.longitude.message)
+  }
 }
