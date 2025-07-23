@@ -1,22 +1,22 @@
-import { validateConfig, validationRules, type LuliaConfig } from './config'
+import { validateState, validationRules, type LuliaState } from './state'
 import { EphemerisAdapter, swissephEngine } from './engine'
 import { bodies } from './bodies'
 import { houses } from './houses'
 import { aspects } from './aspects'
 
-export default (initialConfig: LuliaConfig, engine: EphemerisAdapter = swissephEngine) => {
-  const validatedConfig = validateConfig(initialConfig, validationRules)
+export default (initialState: LuliaState, engine: EphemerisAdapter = swissephEngine) => {
+  const validatedState = validateState(initialState, validationRules)
 
-  const calculateBodies = () => bodies(validatedConfig, engine)
-  const calculateHouses = () => houses(validatedConfig, engine)
+  const calculateBodies = () => bodies(initialState, engine)
+  const calculateHouses = () => houses(initialState, engine)
   const calculateAspects = () => aspects(calculateBodies())
 
-  const getConfig = () => validatedConfig
+  const getState = () => validatedState
 
   return {
     calculateBodies,
     calculateHouses,
     calculateAspects,
-    getConfig
+    getState
   }
 }

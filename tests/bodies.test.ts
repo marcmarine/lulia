@@ -17,14 +17,14 @@ describe('Bodies calculations', () => {
     pluto: 'aquarius'
   }
 
-  const initialConfig = {
-    date: new Date('2025-01-19T12:00:00'),
+  const initialState = {
+    dateTime: new Date('2025-01-19T12:00:00'),
     longitude: 123.45,
     latitude: 45.67
   }
 
   it(`should calculate correct sign for all bodies on 2025-01-19 at 12:00 UT/GMT`, () => {
-    const bodies = Lulia(initialConfig).calculateBodies()
+    const bodies = Lulia(initialState).calculateBodies()
 
     Object.keys(REFERENCE_DATA).forEach(name => {
       expect(bodies.find(body => body.name === name)?.zodiacSign).toBe(REFERENCE_DATA[name])
@@ -48,13 +48,13 @@ describe('Bodies calculations', () => {
       calculateHouses: (): Houses => [...Array(12).keys()].map(index => ({ longitude: { degree: 0, minute: 0, second: 0, decimal: 0 }, zodiacSign: Object.values(SIGNS)[index] }))
     }
 
-    const initialConfig = {
-      date: new Date(),
+    const initialState = {
+      dateTime: new Date(),
       longitude: 123.45,
       latitude: 45.67
     }
 
-    const lulia = Lulia(initialConfig, mockEphemerisAdapter)
+    const lulia = Lulia(initialState, mockEphemerisAdapter)
 
     const bodies = lulia.calculateBodies()
     const housePositions = lulia.calculateHouses()

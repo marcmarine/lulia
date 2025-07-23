@@ -1,22 +1,22 @@
 import { describe, it, expect } from 'vitest'
 import Lulia from '../src'
 
-describe('Configurations', () => {
+describe('State', () => {
   it('should accept valid date, longitude and latitude', () => {
-    const validConfig = {
-      date: new Date(),
+    const validState = {
+      dateTime: new Date(),
       longitude: 123.45,
       latitude: 45.67
     }
 
     expect(() => {
-      Lulia(validConfig)
+      Lulia(validState)
     }).not.toThrow()
   })
 
   it('should accept undefined longitude and latitude', () => {
     const configWithUndefined = {
-      date: new Date()
+      dateTime: new Date()
     }
 
     expect(() => {
@@ -25,38 +25,38 @@ describe('Configurations', () => {
   })
 
   it('should throw error when date is invalid', () => {
-    const invalidConfig = {
-      date: new Date('invalid'),
+    const invalidState = {
+      dateTime: new Date('invalid'),
       longitude: 123.45,
       latitude: 45.67
     }
 
     expect(() => {
-      Lulia(invalidConfig)
+      Lulia(invalidState)
     }).toThrow()
   })
 
   it('should throw error when longitude is invalid', () => {
-    const invalidConfig = {
-      date: new Date(),
+    const invalidState = {
+      dateTime: new Date(),
       longitude: 321,
       latitude: 45.67
     }
 
     expect(() => {
-      Lulia(invalidConfig)
+      Lulia(invalidState)
     }).toThrow()
   })
 
   it('should throw error when latitude is invalid', () => {
-    const invalidConfig = {
-      date: new Date(),
+    const invalidState = {
+      dateTime: new Date(),
       longitude: 123.45,
       latitude: 321
     }
 
     expect(() => {
-      Lulia(invalidConfig)
+      Lulia(invalidState)
     }).toThrow()
   })
 })

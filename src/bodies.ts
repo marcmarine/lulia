@@ -1,13 +1,13 @@
-import type { LuliaConfig } from './config'
+import type { LuliaState } from './state'
 import { BODIES } from './constants'
 import type { CelestialBodies, HousePosition } from './definitions'
 import { EphemerisAdapter } from './engine'
 import { findHouseForLongitude } from './utils'
 
-function calculateBodies(config: LuliaConfig, engine: EphemerisAdapter): CelestialBodies {
-  const { date, longitude, latitude } = config
+function calculateBodies(state: LuliaState, engine: EphemerisAdapter): CelestialBodies {
+  const { dateTime, longitude, latitude } = state
 
-  const julianDay = engine.calculateJulianDay(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes())
+  const julianDay = engine.calculateJulianDay(dateTime.getUTCFullYear(), dateTime.getUTCMonth() + 1, dateTime.getUTCDate(), dateTime.getUTCHours(), dateTime.getUTCMinutes())
 
   return Object.values(BODIES).map(name => {
     const celestialBody = engine.calculateBodyPosition(name, julianDay)

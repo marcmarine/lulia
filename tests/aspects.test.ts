@@ -3,13 +3,13 @@ import Lulia from '../src'
 
 describe('Aspects calculations', () => {
   it('should calculate aspects and include expected fields', () => {
-    const initialConfig = {
-      date: new Date('2025-07-19T21:23:00'),
+    const initialState = {
+      dateTime: new Date('2025-07-19T21:23:00'),
       longitude: 123.45,
       latitude: 45.67
     }
 
-    const aspects = Lulia(initialConfig).calculateAspects()
+    const aspects = Lulia(initialState).calculateAspects()
     const aspect = aspects.sun[0]
 
     expect(aspects).toHaveProperty('sun')

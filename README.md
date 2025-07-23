@@ -22,7 +22,7 @@ Simply create an instance passing the basic configuration including `date` and p
 import Lulia from 'lulia'
 
 const lulia = Lulia({
-  date: new Date('2025-01-19T12:00:00'),
+  dateTime: new Date('2025-01-19T12:00:00'),
   longitude: 41.38879,
   latitude: 2.15899
 })

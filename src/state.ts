@@ -1,6 +1,7 @@
 import { ValidationError } from './errors'
-export interface LuliaConfig {
-  date: Date
+
+export interface LuliaState {
+  dateTime: Date
   longitude?: number
   latitude?: number
 }
@@ -11,7 +12,7 @@ interface ValidationRule<T> {
 }
 
 export const validationRules = {
-  date: {
+  dateTime: {
     validate: (value: unknown): boolean => value instanceof Date && !isNaN(value.getTime()),
     message: 'Date must be a valid Date object'
   },
@@ -25,11 +26,11 @@ export const validationRules = {
   }
 } as const
 
-export const validateConfig = <T extends object>(config: T, rules: Record<keyof T, ValidationRule<T[keyof T]>>): T => {
+export const validateState = <T extends object>(state: T, rules: Record<keyof T, ValidationRule<T[keyof T]>>): T => {
   for (const [key, rule] of Object.entries(rules) as [keyof T, ValidationRule<T[keyof T]>][]) {
-    if (!rule.validate(config[key as keyof T])) {
+    if (!rule.validate(state[key as keyof T])) {
       throw new ValidationError(`Invalid ${String(key)}: ${rule.message}`)
     }
   }
-  return config
+  return state
 }

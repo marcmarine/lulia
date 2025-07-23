@@ -6,7 +6,7 @@ describe('Houses calculations', () => {
 
   it('should return exactly 12 houses', () => {
     const houses = Lulia({
-      date: new Date('2025-02-06T23:10:25.000Z'),
+      dateTime: new Date('2025-02-06T23:10:25.000Z'),
       latitude: 41.390205,
       longitude: 2.154007
     }).calculateHouses()
@@ -15,18 +15,18 @@ describe('Houses calculations', () => {
   })
 
   it('should throw an error when latitude or longitude are missing', () => {
-    const invalidConfig = {
-      date: new Date('2025-02-06T23:10:25.000Z')
+    const invalidState = {
+      dateTime: new Date('2025-02-06T23:10:25.000Z')
     }
 
     expect(() => {
-      Lulia(invalidConfig as any).calculateHouses()
+      Lulia(invalidState as any).calculateHouses()
     }).toThrow('Latitude and longitude are required to calculate houses.')
   })
 
   it('should correctly determine the zodiac signs for each astrological house based on a given date and location', () => {
     const houses = Lulia({
-      date: new Date('2025-02-06T23:10:25.000Z'),
+      dateTime: new Date('2025-02-06T23:10:25.000Z'),
       latitude: 41.390205,
       longitude: 2.154007
     }).calculateHouses()
