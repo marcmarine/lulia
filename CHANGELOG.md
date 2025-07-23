@@ -1,3 +1,16 @@
+# [1.0.0-beta.6](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2025-07-23)
+
+
+### Bug Fixes
+
+* Add minute precision to Julian day calculations ([4f4aa57](https://github.com/marcmarine/lulia/commit/4f4aa57d6b28042494b397b1dcda140aa2f05546))
+* Update calculations to use validated state ([bf4cd53](https://github.com/marcmarine/lulia/commit/bf4cd53a482e8939ce277fc8fca45568182d5cee))
+
+
+### Features
+
+* Add builder method for chainable state management ([2ad35e2](https://github.com/marcmarine/lulia/commit/2ad35e2f80c3eca62a787cafe8adbae3e02084fc))
+
 # [1.0.0-beta.5](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2025-07-21)
 
 
