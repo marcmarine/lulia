@@ -7,8 +7,8 @@ import { aspects } from './aspects'
 export default (initialState: LuliaState, engine: EphemerisAdapter = swissephEngine) => {
   const validatedState = validateState(initialState, validationRules)
 
-  const calculateBodies = () => bodies(initialState, engine)
-  const calculateHouses = () => houses(initialState, engine)
+  const calculateBodies = () => bodies(validatedState, engine)
+  const calculateHouses = () => houses(validatedState, engine)
   const calculateAspects = () => aspects(calculateBodies())
 
   const getState = () => validatedState
