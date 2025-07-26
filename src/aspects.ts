@@ -1,6 +1,6 @@
 import { ASPECTS, ORBS } from './constants'
 import type { AspectAngle, AspectType, Aspects, CelestialBody, CelestialBodies, BodyName } from './definitions'
-import { decimalToDMS, normalizeDegrees } from './utils'
+import { convertDecimalToDegree, normalizeDegrees } from './utils'
 
 function getLongitudeDiff([a, b]: CelestialBody[]): number {
   const longitudeA = normalizeDegrees(a.longitude.decimal)
@@ -70,7 +70,7 @@ export function aspects(bodies: CelestialBodies): Record<BodyName, Aspects> {
       result[bodyA.name].push({
         type,
         targetBody: aspectedBodies[1],
-        deviation: decimalToDMS(offset),
+        deviation: convertDecimalToDegree(offset),
         orbAllowance: orb
       })
     }

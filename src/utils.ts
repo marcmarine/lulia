@@ -10,15 +10,13 @@ export function normalizeDegrees(degrees: number): number {
   return degrees
 }
 
-export function decimalToDMS(decimal: number): Longitude {
+export function convertDecimalToDegree(decimal: number): Longitude {
   const sign = decimal < 0 ? -1 : 1
-  const absVal = Math.abs(decimal)
+  const absouteValue = Math.abs(decimal)
 
-  const degree = Math.floor(absVal) * sign
-  const minutesFull = (absVal - Math.floor(absVal)) * 60
-  const minute = Math.floor(minutesFull)
-  const secondRaw = (minutesFull - minute) * 60
-  const second = Math.round(secondRaw)
+  const degree = Math.floor(absouteValue) * sign
+  const minute = Math.floor((absouteValue - degree) * 60)
+  const second = Math.round((absouteValue - degree - minute / 60) * 3600)
 
   return {
     degree,
@@ -46,4 +44,8 @@ export function isInHouseBoundaries(planetLong: number, houseStart: number, hous
     return planetLong >= houseStart || planetLong < houseEnd
   }
   return planetLong >= houseStart && planetLong < houseEnd
+}
+
+export function getSignIndexFromDegree(longitude: number): number {
+  return Math.floor(longitude / 30)
 }
