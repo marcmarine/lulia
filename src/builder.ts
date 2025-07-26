@@ -3,8 +3,18 @@ import { houses } from './houses'
 import { swissephEngine } from './engine'
 import { createState, LuliaState, validateCoordinates } from './state'
 import { aspects } from './aspects'
+import type { Aspects, BodyName, CelestialBodies, Houses } from './definitions'
 
-export function createBuilder(initialState: LuliaState = createState()) {
+export interface LuliaBuilder {
+  at: (dateTime: Date | string) => LuliaBuilder
+  location: (latitude: number, longitude: number) => LuliaBuilder
+  calculateBodies: () => CelestialBodies
+  calculateHouses: () => Houses
+  calculateAspects: () => Record<BodyName, Aspects>
+  _getState: () => LuliaState
+}
+
+export function createBuilder(initialState: LuliaState = createState()): LuliaBuilder {
   const state = { ...initialState }
 
   const at = (dateTime: Date | string) => {
