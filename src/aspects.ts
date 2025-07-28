@@ -1,5 +1,5 @@
 import { ASPECTS, ORBS } from './constants'
-import type { AspectAngle, AspectType, CelestialBody, Aspect } from './definitions'
+import type { AspectAngle, AspectType, Planet, Aspect } from './definitions'
 import { convertDecimalToDegree, normalizeDegrees } from './utils'
 
 function getLongitudeDiff(a: number, b: number): number {
@@ -32,8 +32,8 @@ function findMatchingAspect(diff: number): {
 }
 
 export function aspect(
-  planet: CelestialBody,
-  targetPlanet: CelestialBody
+  planet: Planet,
+  targetPlanet: Planet
 ):
   | {
       offset: number
@@ -51,7 +51,7 @@ export function aspect(
   }
 }
 
-export function calculateAspects(bodies: CelestialBody[]): Aspect[] {
+export function calculateAspects(bodies: Planet[]): Aspect[] {
   const result: Aspect[] = [] as Aspect[]
 
   for (let i = 0; i < bodies.length; i++) {

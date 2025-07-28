@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { Houses, CelestialBody } from '../src/definitions'
+import { House, HouseNumber, Planet } from '../src/definitions'
 import Lulia from '../src'
 import { SIGNS } from '../src/constants'
 
@@ -31,10 +31,12 @@ describe('Bodies calculations', () => {
     })
   })
 
-  it('should support a custom engine adapter', () => {
+  it('should support a custom e…ngine adapter', () => {
+    type NewType = House[]
+
     const mockEphemerisAdapter = {
       calculateJulianDay: () => 123,
-      calculateBodyPosition: (): CelestialBody => ({
+      calculateBodyPosition: (): Planet => ({
         name: 'sun',
         zodiacSign: 'libra',
         isRetrograde: true,
@@ -45,7 +47,7 @@ describe('Bodies calculations', () => {
           decimal: 0
         }
       }),
-      calculateHouses: (): Houses => [...Array(12).keys()].map(index => ({ longitude: { degree: 0, minute: 0, second: 0, decimal: 0 }, zodiacSign: Object.values(SIGNS)[index] }))
+      calculateHouses: (): NewType => [...Array(12).keys()].map(index => ({ number: index as HouseNumber, longitude: { degree: 0, minute: 0, second: 0, decimal: 0 }, zodiacSign: Object.values(SIGNS)[index] }))
     }
 
     const initialState = {

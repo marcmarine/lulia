@@ -3,12 +3,12 @@ import { calculateHouses } from './houses'
 import { swissephEngine } from './engine'
 import { createState, LuliaState, validateCoordinates } from './state'
 import { calculateAspects } from './aspects'
-import type { Aspect, CelestialBody, House } from './definitions'
+import type { Aspect, Planet, House } from './definitions'
 
 export interface LuliaBuilder extends LuliaState {
   at: (dateTime: Date | string) => LuliaBuilder
   location: (latitude: number, longitude: number) => LuliaBuilder
-  planets: CelestialBody[]
+  planets: Planet[]
   houses?: House[]
   aspects: Aspect[]
 }
