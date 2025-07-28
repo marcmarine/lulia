@@ -1,3 +1,20 @@
+# [1.0.0-beta.7](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-07-28)
+
+
+### Bug Fixes
+
+* Add type interface for builder ([7bdded3](https://github.com/marcmarine/lulia/commit/7bdded3256229c45dc2fdc425cdca66e7cb46dc4))
+* Convert ecliptic degrees to zodiac sign and degree ([ac01379](https://github.com/marcmarine/lulia/commit/ac01379f8d80cd037a19b98dfc1af03d762cbc71))
+* Correct degree calculation in coordinate conversion ([d7a0b86](https://github.com/marcmarine/lulia/commit/d7a0b865d62fa67102207c3481f1d8bf85ae36fa))
+
+
+### Features
+
+* Align terminology and improve type definitions ([dd02f96](https://github.com/marcmarine/lulia/commit/dd02f96604e921b0a2adcf0b015c5b9c5ee39646))
+* Improve aspects calculation accuracy ([9e94701](https://github.com/marcmarine/lulia/commit/9e947017aba1b7aaa81c8311892c34b6a0e1ac3e))
+* Improve builder API by exposing calculated results ([669c1e3](https://github.com/marcmarine/lulia/commit/669c1e3941f3110f5eb5584cc9ae16be93f22842))
+* Refactor degree conversion and improve calculation accuracy ([2b3da05](https://github.com/marcmarine/lulia/commit/2b3da0525467261a9de3fd4f5f7f4bbc0ab15145))
+
 # [1.0.0-beta.6](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2025-07-23)
 
 
