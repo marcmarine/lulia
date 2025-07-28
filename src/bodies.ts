@@ -16,9 +16,9 @@ export function calculateBodies(state: LuliaState, engine: EphemerisAdapter): Pl
 
     if (longitude && latitude) {
       const houseCusps = engine.calculateHouses(julianDay, longitude, latitude)
-      const assignedHouse = findHouseForLongitude(houseCusps, celestialBody.longitude.decimal)
+      const assignedHouse = findHouseForLongitude(houseCusps, celestialBody.position.decimal)
 
-      result = { ...result, housePosition: assignedHouse as HouseNumber }
+      result = { ...result, house: assignedHouse as HouseNumber }
     }
 
     return result

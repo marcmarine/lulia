@@ -6,7 +6,9 @@ export type AspectType = (typeof ASPECTS)[keyof typeof ASPECTS]
 export type AspectAngle = keyof typeof ASPECTS
 export type HouseNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
-export type Longitude = {
+export type Motion = 'direct' | 'retrograde'
+
+export type Position = {
   degree: number
   minute: number
   second: number
@@ -15,20 +17,20 @@ export type Longitude = {
 
 export type Planet = {
   name: PlanetName
-  longitude: Longitude
-  isRetrograde: boolean
-  zodiacSign: SignName
-  housePosition?: HouseNumber
+  position: Position
+  motion: Motion
+  sign: SignName
+  house?: HouseNumber
 }
 
 export type House = {
   number: HouseNumber
-  longitude: Longitude
-  zodiacSign: SignName
+  position: Position
+  sign: SignName
 }
 export interface Aspect {
   planet: PlanetName
   type: AspectType
   targetPlanet: PlanetName
-  deviation: Longitude
+  deviation: Position
 }

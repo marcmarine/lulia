@@ -40,7 +40,7 @@ export function aspect(
       type: AspectType
     }
   | undefined {
-  const diff = getLongitudeDiff(planet.longitude.decimal, targetPlanet.longitude.decimal)
+  const diff = getLongitudeDiff(planet.position.decimal, targetPlanet.position.decimal)
   const match = findMatchingAspect(diff)
 
   if (!match) return undefined

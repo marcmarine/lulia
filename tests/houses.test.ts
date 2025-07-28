@@ -31,6 +31,6 @@ describe('Houses calculations', () => {
       longitude: 2.154007
     }).calculateHouses()
 
-    expectedHouseSigns.forEach((expectedSign, index) => expect(houses[index].zodiacSign).toBe(expectedSign))
+    expectedHouseSigns.forEach((expectedSign, index) => expect(houses[index].sign).toBe(expectedSign))
   })
 })

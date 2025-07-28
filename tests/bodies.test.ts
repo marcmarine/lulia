@@ -27,7 +27,7 @@ describe('Bodies calculations', () => {
     const bodies = Lulia(initialState).calculateBodies()
 
     Object.keys(REFERENCE_DATA).forEach(name => {
-      expect(bodies.find(body => body.name === name)?.zodiacSign).toBe(REFERENCE_DATA[name])
+      expect(bodies.find(body => body.name === name)?.sign).toBe(REFERENCE_DATA[name])
     })
   })
 
@@ -38,16 +38,16 @@ describe('Bodies calculations', () => {
       calculateJulianDay: () => 123,
       calculateBodyPosition: (): Planet => ({
         name: 'sun',
-        zodiacSign: 'libra',
-        isRetrograde: true,
-        longitude: {
+        sign: 'libra',
+        motion: 'direct',
+        position: {
           degree: 0,
           minute: 0,
           second: 0,
           decimal: 0
         }
       }),
-      calculateHouses: (): NewType => [...Array(12).keys()].map(index => ({ number: index as HouseNumber, longitude: { degree: 0, minute: 0, second: 0, decimal: 0 }, zodiacSign: Object.values(SIGNS)[index] }))
+      calculateHouses: (): NewType => [...Array(12).keys()].map(index => ({ number: index as HouseNumber, position: { degree: 0, minute: 0, second: 0, decimal: 0 }, sign: Object.values(SIGNS)[index] }))
     }
 
     const initialState = {
@@ -61,7 +61,7 @@ describe('Bodies calculations', () => {
     const bodies = lulia.calculateBodies()
     const housePositions = lulia.calculateHouses()
 
-    expect(bodies.find(body => body.name === 'sun')?.zodiacSign).toBe('libra')
-    expect(housePositions[1].zodiacSign).toBe('taurus')
+    expect(bodies.find(body => body.name === 'sun')?.sign).toBe('libra')
+    expect(housePositions[1].sign).toBe('taurus')
   })
 })

@@ -23,7 +23,7 @@ export const swissephEngine: EphemerisAdapter = {
 
     const splitDegree = convertDecimalToDegree(long)
 
-    const longitude = {
+    const position = {
       degree: splitDegree.degree,
       minute: splitDegree.minute,
       second: splitDegree.second,
@@ -34,9 +34,9 @@ export const swissephEngine: EphemerisAdapter = {
 
     return {
       name,
-      longitude,
-      zodiacSign: Object.values(SIGNS)[signIndex],
-      isRetrograde: Boolean(longSpeed < 0)
+      position,
+      sign: Object.values(SIGNS)[signIndex],
+      motion: Boolean(longSpeed < 0) ? 'retrograde' : 'direct'
     }
   },
 
@@ -47,19 +47,19 @@ export const swissephEngine: EphemerisAdapter = {
 
     const { houses } = sweph.houses(julday, latitude, longitude, 'P').data
 
-    return houses.map((long, index) => {
-      const splitDegree = convertDecimalToDegree(long)
+    return houses.map((longitude, index) => {
+      const splitDegree = convertDecimalToDegree(longitude)
 
-      const longitude = {
+      const position = {
         degree: splitDegree.degree,
         minute: splitDegree.minute,
         second: splitDegree.second,
-        decimal: long
+        decimal: longitude
       }
 
-      const signIndex = getSignIndexFromDegree(long)
+      const signIndex = getSignIndexFromDegree(longitude)
 
-      return { number: index as HouseNumber, longitude, zodiacSign: Object.values(SIGNS)[signIndex] }
+      return { number: index as HouseNumber, position, sign: Object.values(SIGNS)[signIndex] }
     })
   }
 }
