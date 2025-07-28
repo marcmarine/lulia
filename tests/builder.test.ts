@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { Lulia } from '../src'
+import { LuliaState } from '../src/state'
 
 describe('Builder', () => {
   it('should return initial state', () => {
@@ -11,7 +12,11 @@ describe('Builder', () => {
     }
 
     const lulia = Lulia.at(initialState.dateTime).location(initialState.latitude, initialState.longitude)
-    const state = lulia._getState()
+    const state: LuliaState = {
+      dateTime: lulia.dateTime,
+      latitude: lulia.latitude,
+      longitude: lulia.longitude
+    }
 
     expect(state).toStrictEqual(initialState)
   })
@@ -19,7 +24,12 @@ describe('Builder', () => {
   it('should be chainable', () => {
     const lulia = Lulia.location(41.498889, -5.755556).at('2024-01-01T12:00:00Z')
 
-    const state = lulia._getState()
+    const state: LuliaState = {
+      dateTime: lulia.dateTime,
+      latitude: lulia.latitude,
+      longitude: lulia.longitude
+    }
+
     expect(state.latitude).toBe(41.498889)
     expect(state.longitude).toBe(-5.755556)
     expect(state.dateTime).toEqual(new Date('2024-01-01T12:00:00Z'))
@@ -30,7 +40,7 @@ describe('Builder', () => {
     const expectedDate = new Date(dateString)
     const lulia = Lulia.at(dateString)
 
-    expect(lulia._getState().dateTime).toEqual(expectedDate)
+    expect(lulia.dateTime).toEqual(expectedDate)
   })
 
   it('should create new builders without mutating previous ones', () => {
@@ -38,19 +48,16 @@ describe('Builder', () => {
     const barcelonaBuilder = baseBuilder.location(41.3851, 2.1734)
     const bucharestBuilder = baseBuilder.location(44.4268, 26.1025)
 
-    const baseState = baseBuilder._getState()
-    expect(baseState.latitude).toBeUndefined()
-    expect(baseState.longitude).toBeUndefined()
+    expect(baseBuilder.latitude).toBeUndefined()
+    expect(baseBuilder.longitude).toBeUndefined()
 
-    const barcelonaState = barcelonaBuilder._getState()
-    expect(barcelonaState.latitude).toBe(41.3851)
-    expect(barcelonaState.longitude).toBe(2.1734)
+    expect(barcelonaBuilder.latitude).toBe(41.3851)
+    expect(barcelonaBuilder.longitude).toBe(2.1734)
 
-    const bucharestState = bucharestBuilder._getState()
-    expect(bucharestState.latitude).toBe(44.4268)
-    expect(bucharestState.longitude).toBe(26.1025)
+    expect(bucharestBuilder.latitude).toBe(44.4268)
+    expect(bucharestBuilder.longitude).toBe(26.1025)
 
-    expect(baseState.dateTime).toEqual(barcelonaState.dateTime)
-    expect(baseState.dateTime).toEqual(bucharestState.dateTime)
+    expect(baseBuilder.dateTime).toEqual(barcelonaBuilder.dateTime)
+    expect(baseBuilder.dateTime).toEqual(bucharestBuilder.dateTime)
   })
 })

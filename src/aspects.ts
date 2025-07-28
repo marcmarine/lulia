@@ -50,7 +50,7 @@ export function aspect([first, second]: CelestialBody[]):
   }
 }
 
-export function aspects(bodies: CelestialBodies): Record<BodyName, Aspects> {
+export function calculateAspects(bodies: CelestialBodies): Record<BodyName, Aspects> {
   const result: Record<BodyName, Aspects> = {} as any
 
   for (let i = 0; i < bodies.length; i++) {

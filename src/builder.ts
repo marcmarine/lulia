@@ -1,17 +1,16 @@
-import { bodies } from './bodies'
-import { houses } from './houses'
+import { calculateBodies } from './bodies'
+import { calculateHouses } from './houses'
 import { swissephEngine } from './engine'
 import { createState, LuliaState, validateCoordinates } from './state'
-import { aspects } from './aspects'
+import { calculateAspects } from './aspects'
 import type { Aspects, BodyName, CelestialBodies, Houses } from './definitions'
 
-export interface LuliaBuilder {
+export interface LuliaBuilder extends LuliaState {
   at: (dateTime: Date | string) => LuliaBuilder
   location: (latitude: number, longitude: number) => LuliaBuilder
-  calculateBodies: () => CelestialBodies
-  calculateHouses: () => Houses
-  calculateAspects: () => Record<BodyName, Aspects>
-  _getState: () => LuliaState
+  planets: CelestialBodies
+  houses?: Houses
+  aspects: Record<BodyName, Aspects>
 }
 
 export function createBuilder(initialState: LuliaState = createState()): LuliaBuilder {
@@ -42,20 +41,20 @@ export function createBuilder(initialState: LuliaState = createState()): LuliaBu
     return createBuilder(newState)
   }
 
-  const calculateBodies = () => bodies(state, swissephEngine)
-  const calculateHouses = () => houses(state, swissephEngine)
-  const calculateAspects = () => aspects(calculateBodies())
+  const shouldCalculateHouses = state.latitude !== undefined || state.longitude !== undefined
 
-  const _getState = () => ({ ...state })
+  const planets = calculateBodies(state, swissephEngine)
+  const houses = shouldCalculateHouses ? calculateHouses(state, swissephEngine) : undefined
+  const aspects = calculateAspects(planets)
 
   return {
     at,
     location,
 
-    calculateBodies,
-    calculateHouses,
-    calculateAspects,
+    planets,
+    houses,
+    aspects,
 
-    _getState
+    ...state
   }
 }
