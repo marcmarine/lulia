@@ -42,6 +42,17 @@ export function isInHouseBoundaries(planetLong: number, houseStart: number, hous
   return planetLong >= houseStart && planetLong < houseEnd
 }
 
-export function getSignIndexFromDegree(longitude: number): number {
-  return Math.floor(longitude / 30)
+export function getZodiacPosition(decimalDegree: number): {
+  signIndex: number
+  degree: number
+} {
+  const normalizedDegree = normalizeDegrees(decimalDegree)
+
+  const signIndex = Math.floor(normalizedDegree / 30)
+  const degreeInSign = normalizedDegree % 30
+
+  return {
+    signIndex,
+    degree: degreeInSign
+  }
 }

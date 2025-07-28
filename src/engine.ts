@@ -1,7 +1,7 @@
 import sweph from 'sweph'
 import { BODIES, SIGNS } from './constants'
 import type { PlanetName, Planet, House, HouseNumber } from './definitions'
-import { convertDecimalToDegree, getSignIndexFromDegree } from './utils'
+import { convertDecimalToDegree, getZodiacPosition } from './utils'
 
 export type EphemerisAdapter = {
   calculateJulianDay: (year: number, month: number, day: number, hour: number, min: number) => number
@@ -19,18 +19,18 @@ export const swissephEngine: EphemerisAdapter = {
   calculateBodyPosition: (name, julday): Planet => {
     const bodyIndex = Object.values(BODIES).indexOf(name)
 
-    const [long, , , longSpeed] = sweph.calc_ut(julday, bodyIndex, sweph.constants.SEFLG_SPEED).data
+    const [longitude, , , longSpeed] = sweph.calc_ut(julday, bodyIndex, sweph.constants.SEFLG_SPEED).data
 
-    const splitDegree = convertDecimalToDegree(long)
+    const { degree, signIndex } = getZodiacPosition(longitude)
+
+    const splitDegree = convertDecimalToDegree(degree)
 
     const position = {
       degree: splitDegree.degree,
       minute: splitDegree.minute,
       second: splitDegree.second,
-      decimal: long
+      decimal: longitude
     }
-
-    const signIndex = getSignIndexFromDegree(long)
 
     return {
       name,
@@ -48,7 +48,9 @@ export const swissephEngine: EphemerisAdapter = {
     const { houses } = sweph.houses(julday, latitude, longitude, 'P').data
 
     return houses.map((longitude, index) => {
-      const splitDegree = convertDecimalToDegree(longitude)
+      const { degree, signIndex } = getZodiacPosition(longitude)
+
+      const splitDegree = convertDecimalToDegree(degree)
 
       const position = {
         degree: splitDegree.degree,
@@ -57,9 +59,7 @@ export const swissephEngine: EphemerisAdapter = {
         decimal: longitude
       }
 
-      const signIndex = getSignIndexFromDegree(longitude)
-
-      return { number: index as HouseNumber, position, sign: Object.values(SIGNS)[signIndex] }
+      return { number: (index + 1) as HouseNumber, position, sign: Object.values(SIGNS)[signIndex] }
     })
   }
 }
