@@ -14,12 +14,12 @@ export function convertDecimalToDegree(decimal: number): Longitude {
   const sign = decimal < 0 ? -1 : 1
   const absouteValue = Math.abs(decimal)
 
-  const degree = Math.floor(absouteValue) * sign
+  const degree = Math.floor(absouteValue)
   const minute = Math.floor((absouteValue - degree) * 60)
   const second = Math.round((absouteValue - degree - minute / 60) * 3600)
 
   return {
-    degree,
+    degree: degree * sign,
     minute,
     second,
     decimal
