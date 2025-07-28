@@ -36,27 +36,27 @@ This will retrieve an array with position information about celestial bodies. It
 ;[
   {
     name: 'sun',
-    longitude: {
+    position: {
       degree: 29,
       minute: 37,
-      second: 5,
+      second: 6,
       decimal: 299.6182666649856
     },
-    zodiacSign: 'capricorn',
-    isRetrograde: false,
-    housePosition: 9
+    sign: 'capricorn',
+    motion: 'direct',
+    house: 10
   },
   {
     name: 'moon',
-    longitude: {
+    position: {
       degree: 3,
       minute: 42,
-      second: 28,
+      second: 29,
       decimal: 183.7080303933929
     },
-    zodiacSign: 'libra',
-    isRetrograde: false,
-    housePosition: 5
+    sign: 'libra',
+    motion: 'direct',
+    house: 6
   }
   // ...Rest of bodies
 ]
