@@ -10,11 +10,10 @@ describe('Aspects calculations', () => {
     }
 
     const aspects = Lulia(initialState).calculateAspects()
-    const aspect = aspects.sun[0]
-
-    expect(aspects).toHaveProperty('sun')
+    const aspect = aspects[0]
 
     expect(aspect).toHaveProperty('type')
     expect(aspect.type).toBe('trigone')
+    expect(aspect.targetPlanet).toBe('saturn')
   })
 })

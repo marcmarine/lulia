@@ -1,10 +1,10 @@
 import type { LuliaState } from './state'
 import { BODIES } from './constants'
-import type { CelestialBodies, HousePosition } from './definitions'
+import type { CelestialBody, HousePosition } from './definitions'
 import { EphemerisAdapter } from './engine'
 import { findHouseForLongitude } from './utils'
 
-export function calculateBodies(state: LuliaState, engine: EphemerisAdapter): CelestialBodies {
+export function calculateBodies(state: LuliaState, engine: EphemerisAdapter): CelestialBody[] {
   const { dateTime, longitude, latitude } = state
 
   const julianDay = engine.calculateJulianDay(dateTime.getUTCFullYear(), dateTime.getUTCMonth() + 1, dateTime.getUTCDate(), dateTime.getUTCHours(), dateTime.getUTCMinutes())

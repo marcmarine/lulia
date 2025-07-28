@@ -1,13 +1,9 @@
-import { Houses, Longitude } from './definitions'
+import { House, Longitude } from './definitions'
 
 export function normalizeDegrees(degrees: number): number {
-  if (degrees < -180) {
-    return degrees + 360
-  }
-  if (degrees > 180) {
-    return degrees - 360
-  }
-  return degrees
+  const normalized = degrees % 360
+
+  return normalized < 0 ? normalized + 360 : normalized
 }
 
 export function convertDecimalToDegree(decimal: number): Longitude {
@@ -26,7 +22,7 @@ export function convertDecimalToDegree(decimal: number): Longitude {
   }
 }
 
-export function findHouseForLongitude(houses: Houses, longitude: number): number {
+export function findHouseForLongitude(houses: House[], longitude: number): number {
   for (let houseIndex = 0; houseIndex < houses.length; houseIndex++) {
     const currentHouseCusp = houses[houseIndex].longitude.decimal
     const nextHouseCusp = houses[(houseIndex + 1) % 12].longitude.decimal

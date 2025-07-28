@@ -28,12 +28,8 @@ export type House = {
 export type AspectAngle = keyof typeof ASPECTS
 
 export interface Aspect {
+  planet: BodyName
   type: AspectType
-  targetBody: BodyName
-  orbAllowance: number
+  targetPlanet: BodyName
   deviation: Longitude
 }
-
-export type CelestialBodies = CelestialBody[]
-export type Aspects = Aspect[]
-export type Houses = House[]

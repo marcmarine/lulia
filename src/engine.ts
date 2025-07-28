@@ -1,12 +1,12 @@
 import sweph from 'sweph'
 import { BODIES, SIGNS } from './constants'
-import type { BodyName, CelestialBody, Houses } from './definitions'
+import type { BodyName, CelestialBody, House } from './definitions'
 import { convertDecimalToDegree, getSignIndexFromDegree } from './utils'
 
 export type EphemerisAdapter = {
   calculateJulianDay: (year: number, month: number, day: number, hour: number, min: number) => number
   calculateBodyPosition: (name: BodyName, julianDay: number) => CelestialBody
-  calculateHouses: (julianDay: number, latitude?: number, longitude?: number) => Houses
+  calculateHouses: (julianDay: number, latitude?: number, longitude?: number) => House[]
 }
 
 export const swissephEngine: EphemerisAdapter = {
@@ -40,7 +40,7 @@ export const swissephEngine: EphemerisAdapter = {
     }
   },
 
-  calculateHouses: (julday, latitude, longitude): Houses => {
+  calculateHouses: (julday, latitude, longitude): House[] => {
     if (latitude === undefined || longitude === undefined) {
       throw new Error('Latitude and longitude are required to calculate houses.')
     }
