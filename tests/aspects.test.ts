@@ -4,7 +4,7 @@ import Lulia from '../src'
 describe('Aspects calculations', () => {
   it('should calculate aspects and include expected fields', () => {
     const initialState = {
-      dateTime: new Date('2025-07-19T21:23:00'),
+      dateTime: new Date(Date.UTC(2025, 6, 19, 19, 23)),
       longitude: 123.45,
       latitude: 45.67
     }
