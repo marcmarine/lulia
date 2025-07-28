@@ -1,6 +1,6 @@
-import { ASPECTS, BODIES, SIGNS } from './constants'
+import { ASPECTS, PLANETS, SIGNS } from './constants'
 
-export type PlanetName = (typeof BODIES)[keyof typeof BODIES]
+export type PlanetName = (typeof PLANETS)[keyof typeof PLANETS]
 export type SignName = (typeof SIGNS)[keyof typeof SIGNS]
 export type AspectType = (typeof ASPECTS)[keyof typeof ASPECTS]
 export type AspectAngle = keyof typeof ASPECTS

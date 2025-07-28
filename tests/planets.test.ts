@@ -3,7 +3,7 @@ import { House, HouseNumber, Planet } from '../src/definitions'
 import Lulia from '../src'
 import { SIGNS } from '../src/constants'
 
-describe('Bodies calculations', () => {
+describe('Planet calculations', () => {
   const REFERENCE_DATA = {
     sun: 'capricorn',
     moon: 'libra',
@@ -24,10 +24,10 @@ describe('Bodies calculations', () => {
   }
 
   it(`should calculate correct sign for all bodies on 2025-01-19 at 12:00 UT/GMT`, () => {
-    const bodies = Lulia(initialState).calculateBodies()
+    const planets = Lulia(initialState).calculatePlanets()
 
     Object.keys(REFERENCE_DATA).forEach(name => {
-      expect(bodies.find(body => body.name === name)?.sign).toBe(REFERENCE_DATA[name])
+      expect(planets.find(planet => planet.name === name)?.sign).toBe(REFERENCE_DATA[name])
     })
   })
 
@@ -36,7 +36,7 @@ describe('Bodies calculations', () => {
 
     const mockEphemerisAdapter = {
       calculateJulianDay: () => 123,
-      calculateBodyPosition: (): Planet => ({
+      calculatePlanetPosition: (): Planet => ({
         name: 'sun',
         sign: 'libra',
         motion: 'direct',
@@ -58,10 +58,10 @@ describe('Bodies calculations', () => {
 
     const lulia = Lulia(initialState, mockEphemerisAdapter)
 
-    const bodies = lulia.calculateBodies()
+    const planets = lulia.calculatePlanets()
     const housePositions = lulia.calculateHouses()
 
-    expect(bodies.find(body => body.name === 'sun')?.sign).toBe('libra')
+    expect(planets.find(planet => planet.name === 'sun')?.sign).toBe('libra')
     expect(housePositions[1].sign).toBe('taurus')
   })
 })

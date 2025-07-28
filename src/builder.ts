@@ -1,4 +1,4 @@
-import { calculateBodies } from './bodies'
+import { calculatePlanets } from './planets'
 import { calculateHouses } from './houses'
 import { swissephEngine } from './engine'
 import { createState, LuliaState, validateCoordinates } from './state'
@@ -43,7 +43,7 @@ export function createBuilder(initialState: LuliaState = createState()): LuliaBu
 
   const shouldCalculateHouses = state.latitude !== undefined || state.longitude !== undefined
 
-  const planets = calculateBodies(state, swissephEngine)
+  const planets = calculatePlanets(state, swissephEngine)
   const houses = shouldCalculateHouses ? calculateHouses(state, swissephEngine) : undefined
   const aspects = calculateAspects(planets)
 

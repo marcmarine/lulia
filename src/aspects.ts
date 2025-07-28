@@ -51,13 +51,13 @@ export function aspect(
   }
 }
 
-export function calculateAspects(bodies: Planet[]): Aspect[] {
+export function calculateAspects(planets: Planet[]): Aspect[] {
   const result: Aspect[] = [] as Aspect[]
 
-  for (let i = 0; i < bodies.length; i++) {
-    for (let j = i + 1; j < bodies.length; j++) {
-      const planet = bodies[i]
-      const targetPlanet = bodies[j]
+  for (let i = 0; i < planets.length; i++) {
+    for (let j = i + 1; j < planets.length; j++) {
+      const planet = planets[i]
+      const targetPlanet = planets[j]
 
       const aspectData = aspect(planet, targetPlanet)
 

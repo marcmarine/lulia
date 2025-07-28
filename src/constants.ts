@@ -13,7 +13,7 @@ export const SIGNS = {
   PISCES: 'pisces'
 } as const
 
-export const BODIES = {
+export const PLANETS = {
   SUN: 'sun',
   MOON: 'moon',
   MERCURY: 'mercury',

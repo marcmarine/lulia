@@ -1,11 +1,11 @@
 import sweph from 'sweph'
-import { BODIES, SIGNS } from './constants'
+import { PLANETS, SIGNS } from './constants'
 import type { PlanetName, Planet, House, HouseNumber } from './definitions'
 import { convertDecimalToDegree, getZodiacPosition } from './utils'
 
 export type EphemerisAdapter = {
   calculateJulianDay: (year: number, month: number, day: number, hour: number, min: number) => number
-  calculateBodyPosition: (name: PlanetName, julianDay: number) => Planet
+  calculatePlanetPosition: (name: PlanetName, julianDay: number) => Planet
   calculateHouses: (julianDay: number, latitude?: number, longitude?: number) => House[]
 }
 
@@ -16,10 +16,10 @@ export const swissephEngine: EphemerisAdapter = {
     return sweph.julday(year, month, day, hourWithMinutes, sweph.constants.SE_GREG_CAL)
   },
 
-  calculateBodyPosition: (name, julday): Planet => {
-    const bodyIndex = Object.values(BODIES).indexOf(name)
+  calculatePlanetPosition: (name, julday): Planet => {
+    const planetIndex = Object.values(PLANETS).indexOf(name)
 
-    const [longitude, , , longSpeed] = sweph.calc_ut(julday, bodyIndex, sweph.constants.SEFLG_SPEED).data
+    const [longitude, , , longSpeed] = sweph.calc_ut(julday, planetIndex, sweph.constants.SEFLG_SPEED).data
 
     const { degree, signIndex } = getZodiacPosition(longitude)
 
