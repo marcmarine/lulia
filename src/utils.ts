@@ -23,23 +23,25 @@ export function convertDecimalToDegree(decimal: number): Position {
 }
 
 export function findHouseForLongitude(houses: House[], longitude: number): number {
-  for (let houseIndex = 0; houseIndex < houses.length; houseIndex++) {
-    const currentHouseCusp = houses[houseIndex].position.decimal
-    const nextHouseCusp = houses[(houseIndex + 1) % 12].position.decimal
+  const totalHouses = houses.length
 
-    if (isInHouseBoundaries(longitude, currentHouseCusp, nextHouseCusp)) {
-      return houseIndex + 1
+  for (let i = 0; i < totalHouses; i++) {
+    const start = houses[i].position.decimal
+    const end = houses[(i + 1) % totalHouses].position.decimal
+
+    if (isLongitudeInRange(longitude, start, end)) {
+      return houses[i].number
     }
   }
 
-  return 1
+  return houses[0].number
 }
 
-export function isInHouseBoundaries(planetLong: number, houseStart: number, houseEnd: number): boolean {
-  if (houseStart > houseEnd) {
-    return planetLong >= houseStart || planetLong < houseEnd
+function isLongitudeInRange(longitude: number, start: number, end: number): boolean {
+  if (start > end) {
+    return longitude >= start || longitude < end
   }
-  return planetLong >= houseStart && planetLong < houseEnd
+  return longitude >= start && longitude < end
 }
 
 export function getZodiacPosition(decimalDegree: number): {
