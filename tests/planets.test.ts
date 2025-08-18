@@ -31,7 +31,7 @@ describe('Planet calculations', () => {
     })
   })
 
-  it('should support a custom e…ngine adapter', () => {
+  it('should support a custom engine adapter', () => {
     type NewType = House[]
 
     const mockEphemerisAdapter = {
@@ -63,5 +63,30 @@ describe('Planet calculations', () => {
 
     expect(planets.find(planet => planet.name === 'sun')?.sign).toBe('libra')
     expect(housePositions[1].sign).toBe('taurus')
+  })
+
+  it('should assign correct house positions to planets when coordinates are provided', () => {
+    const expectedHousePositions = [5, 2, 5, 7, 11, 10, 7, 10, 8, 6]
+    const planets = Lulia(initialState).calculatePlanets()
+
+    planets.forEach((planet, index) => {
+      expect(planet.house).toBeDefined()
+      expect(typeof planet.house).toBe('number')
+      expect(planet.house).toEqual(expectedHousePositions[index])
+    })
+  })
+
+  it('should not assign house positions when coordinates are missing', () => {
+    const stateWithoutCoords = {
+      dateTime: new Date('2025-01-19T12:00:00'),
+      longitude: undefined,
+      latitude: undefined
+    }
+
+    const planets = Lulia(stateWithoutCoords).calculatePlanets()
+
+    planets.forEach(planet => {
+      expect(planet.house).toBeUndefined()
+    })
   })
 })
