@@ -15,7 +15,7 @@ export function calculatePlanets(state: LuliaState, engine: EphemerisAdapter): P
     let result = { ...planet }
 
     if (longitude && latitude) {
-      const houseCusps = engine.calculateHouses(julianDay, longitude, latitude)
+      const houseCusps = engine.calculateHouses(julianDay, latitude, longitude)
       const assignedHouse = findHouseForLongitude(houseCusps, planet.position.decimal)
 
       result = { ...result, house: assignedHouse as HouseNumber }
