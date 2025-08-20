@@ -1,12 +1,12 @@
 import { calculatePlanets } from './planets'
 import { calculateHouses } from './houses'
 import { swissephEngine } from './engine'
-import { createState, LuliaState, validateCoordinates } from './state'
+import { createState, LuliaState, validateCoordinates, validationRules } from './state'
 import { calculateAspects } from './aspects'
 import type { Aspect, Planet, House } from './definitions'
 
 export interface LuliaBuilder extends LuliaState {
-  at: (dateTime: Date | string) => LuliaBuilder
+  at: (dateTime: string) => LuliaBuilder
   location: (latitude: number, longitude: number) => LuliaBuilder
   planets: Planet[]
   houses?: House[]
@@ -16,17 +16,12 @@ export interface LuliaBuilder extends LuliaState {
 export function createBuilder(initialState: LuliaState = createState()): LuliaBuilder {
   const state = { ...initialState }
 
-  const at = (dateTime: Date | string) => {
-    let parsedDate: Date
-    if (typeof dateTime === 'string') {
-      parsedDate = new Date(dateTime)
-    } else if (dateTime instanceof Date) {
-      parsedDate = new Date(dateTime.getTime())
-    } else {
-      throw new Error('Invalid date format. Use Date object or ISO string.')
+  const at = (dateTime: string) => {
+    if (!validationRules.dateTime.validate(dateTime)) {
+      throw new Error('Invalid date string provided to at()')
     }
 
-    const newState = { ...state, dateTime: parsedDate }
+    const newState = { ...state, dateTime }
     return createBuilder(newState)
   }
 
@@ -41,7 +36,7 @@ export function createBuilder(initialState: LuliaState = createState()): LuliaBu
     return createBuilder(newState)
   }
 
-  const shouldCalculateHouses = state.latitude !== undefined || state.longitude !== undefined
+  const shouldCalculateHouses = state.latitude !== undefined && state.longitude !== undefined
 
   const planets = calculatePlanets(state, swissephEngine)
   const houses = shouldCalculateHouses ? calculateHouses(state, swissephEngine) : undefined

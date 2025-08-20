@@ -1,7 +1,8 @@
 import { ValidationError } from './errors'
+import { getLocaleISODateString } from './utils'
 
 export interface LuliaState {
-  dateTime: Date
+  dateTime: string
   longitude?: number
   latitude?: number
 }
@@ -12,16 +13,20 @@ interface ValidationRule<T> {
 }
 
 export const createState = (): LuliaState => ({
-  dateTime: new Date(),
+  dateTime: getLocaleISODateString(),
   latitude: undefined,
   longitude: undefined
 })
 
 export const validationRules = {
   dateTime: {
-    validate: (value: unknown): boolean => value instanceof Date && !isNaN(value.getTime()),
-    message: 'Date must be a valid Date object'
-  },
+      validate: (value: unknown): boolean => {
+        if (typeof value !== 'string') return false
+        const date = new Date(value)
+        return !isNaN(date.getTime())
+      },
+      message: 'Date must be a valid date string'
+    },
   longitude: {
     validate: (value: unknown): boolean => value === undefined || (typeof value === 'number' && value >= -180 && value <= 180),
     message: 'Longitude must be a number between -180 and 180'

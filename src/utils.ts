@@ -58,3 +58,18 @@ export function getZodiacPosition(decimalDegree: number): {
     degree: degreeInSign
   }
 }
+
+export function getLocaleISODateString(): string {
+  // Using the Swedish locale ("sv-SE") formats the date as ISO-like "YYYY-MM-DD HH:mm:ss".
+  return new Date().toLocaleString("sv-SE").slice(0, -3)
+}
+
+
+export function parseLocaleISODateString(dateLocaleString: string): [year: number, month: number,day: number, hour:number, minute: number] {
+  const [year, month, day, hour, minute] = dateLocaleString
+    .replace('T', ' ')
+    .split(/[- :]/)
+    .map(Number)
+
+  return [year, month, day, hour, minute]
+}

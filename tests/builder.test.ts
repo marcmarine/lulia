@@ -6,7 +6,7 @@ describe('Builder', () => {
   it('should return initial state', () => {
     // Agustín García Calvo, born on 15 October 1926 in Zamora
     const initialState = {
-      dateTime: new Date(Date.UTC(1926, 9, 15, 3, 0, 0)),
+      dateTime: new Date(Date.UTC(1926, 9, 15, 3, 0, 0)).toISOString(),
       latitude: 41.498889,
       longitude: -5.755556
     }
@@ -22,7 +22,7 @@ describe('Builder', () => {
   })
 
   it('should be chainable', () => {
-    const lulia = Lulia.location(41.498889, -5.755556).at('2024-01-01T12:00:00Z')
+    const lulia = Lulia.location(41.498889, -5.755556).at('2024-01-01T12:00')
 
     const state: LuliaState = {
       dateTime: lulia.dateTime,
@@ -32,15 +32,7 @@ describe('Builder', () => {
 
     expect(state.latitude).toBe(41.498889)
     expect(state.longitude).toBe(-5.755556)
-    expect(state.dateTime).toEqual(new Date('2024-01-01T12:00:00Z'))
-  })
-
-  it('should accept date string in various formats', () => {
-    const dateString = '1926-10-15T03:00'
-    const expectedDate = new Date(dateString)
-    const lulia = Lulia.at(dateString)
-
-    expect(lulia.dateTime).toEqual(expectedDate)
+    expect(state.dateTime).toEqual('2024-01-01T12:00')
   })
 
   it('should create new builders without mutating previous ones', () => {

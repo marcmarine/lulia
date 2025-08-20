@@ -2,12 +2,13 @@ import type { LuliaState } from './state'
 import { PLANETS } from './constants'
 import type { Planet, HouseNumber } from './definitions'
 import { EphemerisAdapter } from './engine'
-import { findHouseForLongitude } from './utils'
+import { findHouseForLongitude, parseLocaleISODateString } from './utils'
 
 export function calculatePlanets(state: LuliaState, engine: EphemerisAdapter): Planet[] {
   const { dateTime, longitude, latitude } = state
+  const parsedDate = parseLocaleISODateString(dateTime)
 
-  const julianDay = engine.calculateJulianDay(dateTime.getUTCFullYear(), dateTime.getUTCMonth() + 1, dateTime.getUTCDate(), dateTime.getUTCHours(), dateTime.getUTCMinutes())
+  const julianDay = engine.calculateJulianDay(...parsedDate)
 
   return Object.values(PLANETS).map(name => {
     const planet = engine.calculatePlanetPosition(name, julianDay)

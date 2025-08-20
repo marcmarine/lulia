@@ -1,10 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import Lulia from '../src'
+import { getLocaleISODateString } from '../src/utils'
 
 describe('Lulia', () => {
   it('should return initial state', () => {
     const initialState = {
-      dateTime: new Date(),
+      dateTime: getLocaleISODateString(),
       longitude: 123.45,
       latitude: 45.67
     }

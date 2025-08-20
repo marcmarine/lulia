@@ -1,10 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import Lulia from '../src'
+import { getLocaleISODateString } from '../src/utils'
 
 describe('State', () => {
   it('should accept valid date, longitude and latitude', () => {
     const validState = {
-      dateTime: new Date(),
+      dateTime: getLocaleISODateString(),
       longitude: 123.45,
       latitude: 45.67
     }
@@ -16,7 +17,7 @@ describe('State', () => {
 
   it('should accept undefined longitude and latitude', () => {
     const configWithUndefined = {
-      dateTime: new Date()
+      dateTime: getLocaleISODateString()
     }
 
     expect(() => {
@@ -26,7 +27,7 @@ describe('State', () => {
 
   it('should throw error when date is invalid', () => {
     const invalidState = {
-      dateTime: new Date('invalid'),
+      dateTime: 'invalid',
       longitude: 123.45,
       latitude: 45.67
     }
@@ -38,7 +39,7 @@ describe('State', () => {
 
   it('should throw error when longitude is invalid', () => {
     const invalidState = {
-      dateTime: new Date(),
+      dateTime: getLocaleISODateString(),
       longitude: 321,
       latitude: 45.67
     }
@@ -50,7 +51,7 @@ describe('State', () => {
 
   it('should throw error when latitude is invalid', () => {
     const invalidState = {
-      dateTime: new Date(),
+      dateTime: getLocaleISODateString(),
       longitude: 123.45,
       latitude: 321
     }
