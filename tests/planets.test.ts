@@ -18,9 +18,9 @@ describe('Planet calculations', () => {
     pluto: 'virgo'
   }
 
-  // Initial state representing the birth data of Immanuel Kant
+  // Immanuel Kant, born on	22 April 1724 at 05:00 in Königsberg
   const initialState = {
-    dateTime: '1724-04-22T03:38:00',
+    dateTime: '1724-04-22T05:00:00',
     longitude: 20.5000,
     latitude: 54.7167
   }

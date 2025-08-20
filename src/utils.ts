@@ -1,3 +1,4 @@
+import tzlookup from 'tz-lookup'
 import { House, Position } from './definitions'
 
 export function normalizeDegrees(degrees: number): number {
@@ -65,11 +66,56 @@ export function getLocaleISODateString(): string {
 }
 
 
-export function parseLocaleISODateString(dateLocaleString: string): [year: number, month: number,day: number, hour:number, minute: number] {
+export function parseISODateTimeString(dateLocaleString: string): [year: number, month: number,day: number, hour:number, minute: number] {
   const [year, month, day, hour, minute] = dateLocaleString
     .replace('T', ' ')
     .split(/[- :]/)
     .map(Number)
 
   return [year, month, day, hour, minute]
+}
+
+export function getTimezoneFromCoordinates(latitude: number, longitude: number) {
+  return tzlookup(latitude, longitude)
+}
+
+export function convertLocaleStringToUTCDate(
+  dateLocaleString: string,
+  timeZone: string,
+): string {
+  const [year, month, day, hour, minute] = dateLocaleString
+    .replace('T', ' ')
+    .split(/[- :]/)
+    .map(Number)
+
+  const tempDate = new Date(Date.UTC(year, month - 1, day, hour, minute))
+
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    hour12: false,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  })
+
+  const parts = fmt.formatToParts(tempDate)
+
+  const get = (type: string) =>
+    Number(parts.find((p) => p.type === type)?.value)
+
+  const utcEquivalent = Date.UTC(
+    get('year'),
+    get('month') - 1,
+    get('day'),
+    get('hour'),
+    get('minute'),
+    get('second'),
+  )
+
+  const offset = utcEquivalent - tempDate.getTime()
+
+  return new Date(tempDate.getTime() - offset).toISOString()
 }
