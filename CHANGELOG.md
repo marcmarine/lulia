@@ -1,3 +1,16 @@
+# [1.0.0-beta.8](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2025-08-21)
+
+
+### Bug Fixes
+
+* Correct longitude/latitude parameter order in house calc ([65272ce](https://github.com/marcmarine/lulia/commit/65272ce9b0d34bb1d7df1150c4d526e9ba8ca558))
+
+
+### Features
+
+* Add tz-lookup dependency and convert local time to UTC ([56788ba](https://github.com/marcmarine/lulia/commit/56788ba4d703e599f9634312cbbb9df17e8bb36f))
+* Use ISO date strings for dateTime ([23884a3](https://github.com/marcmarine/lulia/commit/23884a33d3e5c604f91a1152a3ee2bf3cf21469c))
+
 # [1.0.0-beta.7](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-07-28)
 
 
