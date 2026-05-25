@@ -1,3 +1,10 @@
+# [1.0.0-beta.9](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2026-05-25)
+
+
+### Features
+
+* Migrate to pnpm and update sweph version ([adb8d6c](https://github.com/marcmarine/lulia/commit/adb8d6c48423624f39373587c58f7137b635e3b0))
+
 # [1.0.0-beta.8](https://github.com/marcmarine/lulia/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2025-08-21)
 
 
