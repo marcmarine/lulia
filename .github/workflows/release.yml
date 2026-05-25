@@ -19,23 +19,36 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: "lts/*"
+          cache: "pnpm"
+
+      - name: Enable Corepack & setup pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11 --activate
+
       - name: Install dependencies
-        run: npm clean-install
+        run: pnpm install --frozen-lockfile
+
       - name: Test
-        run: npm test
+        run: pnpm test
+
       - name: Build
-        run: npm run build
-      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
-        run: npm audit signatures
+        run: pnpm build
+
+      - name: Audit dependencies
+        run: pnpm audit --prod
+
       - name: Release
         env:
           GIT_AUTHOR_NAME: ${{ vars.GIT_AUTHOR_NAME }}
@@ -44,4 +57,4 @@ jobs:
           GIT_COMMITTER_EMAIL: ${{ vars.GIT_COMMITTER_EMAIL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: pnpm dlx semantic-release
