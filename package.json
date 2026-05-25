@@ -1,55 +1,57 @@
 {
-  "name": "lulia",
-  "version": "1.0.0-beta.8",
-  "description": "An easy-to-use interface for astronomical calculations.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/marcmarine/lulia.git"
-  },
-  "main": "dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
-    },
-    "./types": "./dist/index.d.ts"
-  },
-  "types": "dist/index.d.ts",
-  "type": "module",
-  "scripts": {
-    "build:types": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
-    "build": "rolldown --config && npm run build:types",
-    "test": "vitest"
-  },
-  "bugs": "https://github.com/marcmarine/lulia/issues/new",
-  "author": "Marc Mariné <shenobi@gmail.com>",
-  "license": "AGPL-3.0",
-  "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@types/node": "^22.10.7",
-    "@types/tz-lookup": "^6.1.2",
-    "dts-bundle-generator": "^9.5.1",
-    "rolldown": "^1.0.0-beta.1",
-    "semantic-release": "^24.2.1",
-    "vitest": "^3.0.2"
-  },
-  "peerDependencies": {
-    "typescript": "^5.7.3"
-  },
-  "dependencies": {
-    "sweph": "^2.10.3-b-1",
-    "tz-lookup": "^6.1.25"
-  },
-  "keywords": [
-    "astronomy",
-    "ephemeris",
-    "swisseph",
-    "sweph",
-    "astrology"
-  ],
-  "files": [
-    "dist"
-  ]
+	"name": "lulia",
+	"version": "1.0.0-beta.8",
+	"description": "An easy-to-use interface for astronomical calculations.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/marcmarine/lulia.git"
+	},
+	"main": "dist/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./dist/index.d.ts"
+		},
+		"./types": {
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"build:types": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+		"build": "rolldown --config && npm run build:types",
+		"test": "vitest"
+	},
+	"bugs": "https://github.com/marcmarine/lulia/issues/new",
+	"author": "Marc Mariné <shenobi@gmail.com>",
+	"license": "AGPL-3.0",
+	"devDependencies": {
+		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/git": "^10.0.1",
+		"@types/node": "^22.10.7",
+		"@types/tz-lookup": "^6.1.2",
+		"dts-bundle-generator": "^9.5.1",
+		"rolldown": "^1.0.0-beta.1",
+		"semantic-release": "^24.2.1",
+		"vitest": "^3.0.2"
+	},
+	"peerDependencies": {
+		"typescript": "^5.7.3"
+	},
+	"dependencies": {
+		"sweph": "^2.10.3-5",
+		"tz-lookup": "^6.1.25"
+	},
+	"keywords": [
+		"astronomy",
+		"ephemeris",
+		"swisseph",
+		"sweph",
+		"astrology"
+	],
+	"files": [
+		"dist"
+	]
 }
